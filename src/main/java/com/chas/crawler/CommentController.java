@@ -19,7 +19,7 @@ public class CommentController {
         config.setCrawlStorageFolder(crawlStorageFolder);
         config.setPolitenessDelay(1000);
         config.setIncludeHttpsPages(true);
-        config.setMaxDepthOfCrawling(1);
+        config.setMaxDepthOfCrawling(0);
         config.setResumableCrawling(true);
         config.setUserAgentString("Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 YaBrowser/17.3.1.840 Yowser/2.5 Safari/537.36");
 

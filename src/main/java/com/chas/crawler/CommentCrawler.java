@@ -118,10 +118,10 @@ public class CommentCrawler extends WebCrawler{
                 String remark = remarkCache.substring(remarkCache.length() - 2);
 
                 Element commentRst = c.select("div.comment-rst").first();
-                Elements comCache = commentRst.select("span.rst");
-                String taste = comCache[1].substring(2,3);
-                String envir = comCache[2].substring(2,3);
-                String service = comCache[3].substring(2,3);
+                String[] comCache = commentRst.select("span.rst").text().split(" ");
+                String taste = comCache[0].substring(2,3);
+                String envir = comCache[1].substring(2,3);
+                String service = comCache[2].substring(2,3);
 
                 String detail = c.select("div.J_brief-cont").text();
 
