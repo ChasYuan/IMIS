@@ -1,5 +1,6 @@
-<!doctype html>
-<html lang="en">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<html>
 <head>
 	<meta charset="utf-8" />
 	<link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
@@ -117,26 +118,12 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                        	<td>Chas</td>
-                                        	<td>chasyuan@qq.com</td>
-                                        	<td>1111111</td>
-											<td><i class="fa fa-check text-success"></td>
+                                        	<td>${userName}</td>
+                                        	<td>${email}</td>
+                                        	<td>${phone}</td>
+                                            <td>${rightType}</td>
+											<%--<td><i class="fa fa-check text-success"></td>--%>
                                         </tr>
-                                        <tr>
-                                        	<td>Test</td>
-                                        	<td>example@qq.com</td>
-                                        	<td>111111</td>
-											<td><i class="fa fa-times text-danger"></i></td>
-                                        </tr>
-										<!-- <tr>
-											<td></td>
-											<td>
-												<a href="#" class="btn btn-round btn-fill btn-default disabled">Current Version</a>
-											</td>
-											<td>
-												<a target="_blank" href="#/product/paper-dashboard-pro/?ref=pdfree-upgrade-archive" class="btn btn-round btn-fill btn-info">Upgrade to PRO</a>
-											</td>
-										</tr> -->
                                     </tbody>
                                 </table>
                             </div>

@@ -43,21 +43,21 @@ public class ShopCrawler extends WebCrawler{
                 csv.delete();
             }
 
-            cw = new CsvWriter(new FileWriter(csv, true), ',');
-            cw.write("shopid");
-            cw.write("shopName");
-            cw.write("star");
-            cw.write("city");
-            cw.write("address");
-            cw.write("detailAddr");
-            cw.write("commentNum");
-            cw.write("meanPrice");
-            cw.write("category");
-            cw.write("taste");
-            cw.write("envir");
-            cw.write("service");
-            cw.endRecord();
-            cw.close();
+//            cw = new CsvWriter(new FileWriter(csv, true), ',');
+//            cw.write("shopid");
+//            cw.write("shopName");
+//            cw.write("star");
+//            cw.write("city");
+//            cw.write("address");
+//            cw.write("detailAddr");
+//            cw.write("commentNum");
+//            cw.write("meanPrice");
+//            cw.write("category");
+//            cw.write("taste");
+//            cw.write("envir");
+//            cw.write("service");
+//            cw.endRecord();
+//            cw.close();
         }
     }
 
