@@ -4,8 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.chas.dao.UserDao">
-
-    <select id="selectUserByName" parameterType="String" resultType="java.util.HashMap">
+    <select id="selectUserWithTypeByName" parameterType="java.lang.String" resultType="java.util.HashMap">
         select a.userName userName,
         a.email email,
         a.phone phone,
@@ -13,5 +12,9 @@
         from `user` a, `right` b
         where a.userName = #{userName}
         AND a.right = b.id;
+    </select>
+
+    <select id="selectUserByName" parameterType="java.lang.String" resultType="com.chas.model.User">
+        select * from `user` where `userName` = #{userName}
     </select>
 </mapper>

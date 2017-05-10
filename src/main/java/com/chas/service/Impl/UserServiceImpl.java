@@ -23,9 +23,16 @@ public class UserServiceImpl implements UserService{
     private UserDao userDao;
 
 
-    public HashMap selectUserByName(String userName){
-        return userDao.selectUserByName(userName);
+    public HashMap selectUserWithTypeByName(String userName){
+        return userDao.selectUserWithTypeByName(userName);
     }
 
+    public User checkLogin(String userName, String password){
+        User user = userDao.selectUserByName(userName);
+        if(user != null && user.getPassword().equals(password))
+            return user;
+        else
+            return null;
+    }
 
 }

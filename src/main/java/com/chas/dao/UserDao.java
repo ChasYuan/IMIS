@@ -16,7 +16,8 @@ public interface UserDao {
     * @return
     *
     * */
-    HashMap selectUserByName(String userName);
+    HashMap selectUserWithTypeByName(String userName);
 
+    User selectUserByName(String userName);
 
 }

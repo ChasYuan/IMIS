@@ -14,5 +14,7 @@ public interface UserService {
    * @return
    *
    * */
-    HashMap selectUserByName(String userName);
+    HashMap selectUserWithTypeByName(String userName);
+
+    User checkLogin(String userName, String password);
 }
