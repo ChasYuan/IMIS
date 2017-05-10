@@ -17,4 +17,14 @@
     <select id="selectUserByName" parameterType="java.lang.String" resultType="com.chas.model.User">
         select * from `user` where `userName` = #{userName}
     </select>
+
+    <select id="selectUserById" parameterType="java.lang.Integer" resultType="com.chas.model.User">
+        SELECT * FROM `user` WHERE `id` = #{id}
+    </select>
+
+    <update id="updateUser" parameterType="com.chas.model.User" >
+        UPDATE `user`
+        SET username = #{username}, email = #{email}, phone = #{phone}
+        WHERE id=#{id}
+    </update>
 </mapper>

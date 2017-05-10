@@ -20,6 +20,13 @@
 </script>
 <body class="login" mycollectionplug="bind">
 <div class="login_m">
-    <h1>${errorMsg}</h1>
+<div class="login_logo"><img src="./index/logo.png" width="196" height="46"></div>
+<div class="login_boder">
+
+    <div class="login_padding" id="login_model">
+        <p><b><h1>Error: </h1></b></p>
+        <h1>${errorMsg}</h1>
+    </div>
+</div>
 </div>
 </body></html>

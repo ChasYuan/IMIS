@@ -11,13 +11,25 @@ public interface UserDao {
 //    void selectAllUser();
 
     /*
-    * Get user by name
+    * Get user with right type by name.
     * @param userName
     * @return
     *
     * */
     HashMap selectUserWithTypeByName(String userName);
 
+    /*
+    * Get user by name.
+    * @param userName
+    * @return
+    * */
     User selectUserByName(String userName);
 
+    /*
+    * Update user.
+    * @param User
+    * */
+    void updateUser(User user);
+
+    User selectUserById(int id);
 }

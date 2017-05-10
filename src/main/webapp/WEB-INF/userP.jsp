@@ -116,7 +116,7 @@
                             <div class="content">
                                 <div class="author">
                                   <img class="avatar border-white" src="img/faces/face-1.jpg" alt="..."/>
-                                  <h4 class="title">${user.userName}<br />
+                                  <h4 class="title">${user.username}<br />
                                   </h4>
                                 </div>
                                 <p class="description text-center">
@@ -142,12 +142,13 @@
                                 <h4 class="title">Profile</h4>
                             </div>
                             <div class="content">
-                                <form>
+                                <form action="/updateuser" method="post" >
+                                    <input type="hidden" id="userid" name="userid" value="${user.id}"/>
                                     <div class="row">
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Username</label>
-                                                <input type="text" class="form-control border-input" placeholder="Username" value="${user.userName}">
+                                                <input type="text" id="username" name="username" class="form-control border-input" placeholder="Username" value="${user.username}">
                                             </div>
                                         </div>
 										</div>
@@ -155,13 +156,13 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Email address</label>
-                                                <input type="email" class="form-control border-input" placeholder="Email" value="${user.email}">
+                                                <input type="email" id="email" name="email" class="form-control border-input" placeholder="Email" value="${user.email}">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Phone</label>
-                                                <input type="text" class="form-control border-input" placeholder="Home Address" value="${user.phone}">
+                                                <input type="text" id="phone" name="phone" class="form-control border-input" placeholder="Home Address" value="${user.phone}">
                                             </div>
                                         </div>
                                     </div>
@@ -170,7 +171,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Right</label>
-                                                <input type="number" class="form-control border-input" value="${user.right}">
+                                                <input type="text" disabled class="form-control border-input" value="${user.right}">
                                             </div>
                                         </div>
                                     </div>
@@ -222,7 +223,7 @@
         	demo.initChartist();
 
         	$.notify({
-            	message: "Welcome to DCAA SYSTEM"
+            	message: "${msg}"
 
             },{
                 type: 'success',

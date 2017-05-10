@@ -16,5 +16,23 @@ public interface UserService {
    * */
     HashMap selectUserWithTypeByName(String userName);
 
-    User checkLogin(String userName, String password);
+
+    /*
+       * Get user by name.
+       * @param userName
+       * @return
+       * */
+    String checkLogin(String userName, String password);
+
+    /*
+    * Update user.
+    * @param User
+    * */
+    void updateUser(User user);
+
+    User selectUserByName(String userName);
+
+    User selectUserById(int id);
+
+    boolean userUpdateCheck(User user);
 }

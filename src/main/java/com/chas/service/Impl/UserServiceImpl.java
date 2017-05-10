@@ -3,6 +3,7 @@ package com.chas.service.Impl;
 import com.chas.dao.UserDao;
 import com.chas.model.User;
 import com.chas.service.UserService;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import com.uwyn.jhighlight.fastutil.Hash;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,12 +28,36 @@ public class UserServiceImpl implements UserService{
         return userDao.selectUserWithTypeByName(userName);
     }
 
-    public User checkLogin(String userName, String password){
+    public String checkLogin(String userName, String password){
         User user = userDao.selectUserByName(userName);
-        if(user != null && user.getPassword().equals(password))
-            return user;
+        if(user == null)
+            return "Invalid Username";
+        else if (user.getPassword().equals(password))
+            return "success";
         else
-            return null;
+            return "Invalid Password";
+    }
+
+    public void updateUser(User user){
+        userDao.updateUser(user);
+    }
+
+    public User selectUserById(int id){
+        User user = userDao.selectUserById(id);
+        return user;
+    }
+
+    public User selectUserByName(String userName){
+        return userDao.selectUserByName(userName);
+    }
+
+    public boolean userUpdateCheck(User user){
+        User old = userDao.selectUserById(user.getId());
+        if(old.getUsername().equals(user.getUsername()) && user.getEmail().equals(old.getEmail()) && user.getPhone().equals(old.getPhone())){
+            return false;
+        }
+        else
+            return true;
     }
 
 }
