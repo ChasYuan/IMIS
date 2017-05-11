@@ -13,7 +13,7 @@
 </script>
 <body class="login" mycollectionplug="bind">
 <div class="login_m">
-<div class="login_logo"><img src="./index/logo.png" width="196" height="46"></div>
+<a href="/"><div class="login_logo"><img src="./index/logo.png" width="196" height="46"></div></a>
 <div class="login_boder">
 
 <div class="login_padding" id="login_model">

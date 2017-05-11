@@ -80,7 +80,7 @@
                     </c:otherwise>
                 </c:choose>
 			    <li class="active-pro">
-                    <a href="index.jsp">
+                    <a href="/">
                         <i class="ti-export"></i>
                         <p>Login Out</p>
                     </a>

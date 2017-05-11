@@ -177,7 +177,7 @@ public class UserController {
         User user = userService.selectUserById(userid);
         user.setPassword(newPwd);
         userService.updateUser(user);
-        return "index";
+        return "redirect:/";
     }
 
     @RequestMapping("/signup")
@@ -219,7 +219,7 @@ public class UserController {
         user.setPhone(phone);
         user.setRight(rightid);
         userService.insertUser(user);
-        return "index";
+        return "redirect:/";
     }
 
 

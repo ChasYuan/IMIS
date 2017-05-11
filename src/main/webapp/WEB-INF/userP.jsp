@@ -43,14 +43,19 @@
 
     	<div class="sidebar-wrapper">
             <div class="logo">
-                <a href="#" class="simple-text">
+                <form method="post" id="sidebarForm">
+                    <input type="hidden" name="username" value="${user.username}">
+                    <input type="hidden" name="password" value="${user.password}">
+                <a onclick="mysubmit('login')" href="" class="simple-text">
                     DCAA SYSTEM
                 </a>
+                </form>
             </div>
 
             <ul class="nav">
 				<li class="active">
-                    <a href="userP.jsp">                      
+                    <a onclick="mysubmit('login')" href="">
+                        <i class="ti-user"></i>
                         <p>User Profile</p>
                     </a>
                 </li>
@@ -80,7 +85,7 @@
                     </c:otherwise>
                 </c:choose>
 			    <li class="active-pro">
-                    <a href="index.jsp">
+                    <a href="/">
                         <i class="ti-export"></i>
                         <p>Login Out</p>
                     </a>
@@ -100,6 +105,8 @@
                         <span class="icon-bar bar3"></span>
                     </button>
                     <a class="navbar-brand" href="#">User Profile</a>
+                </div>
+                <div class="collapse navbar-collapse">
                 </div>
             </div>
         </nav>
@@ -215,6 +222,8 @@
     <!-- Paper Dashboard Core javascript and methods for Demo purpose -->
 	<script src="js/paper-dashboard.js"></script>
 
+    <script src="js/jquery.redirect.js"></script>
+
 	<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 	<script src="js/demo.js"></script>
 <script type="text/javascript">
@@ -231,7 +240,11 @@
             });
 
     	});
-
-
 	</script>
+<script type="text/javascript">
+    function mysubmit(text) {
+        $("#sidebarForm").attr("action","/"+text);
+        $("#sidebarForm").submit();
+    }
+</script>
 </html>
