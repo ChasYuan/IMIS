@@ -55,20 +55,22 @@
             <ul class="nav">
 				<li class="active">
                     <a onclick="mysubmit('login')" href="">
-                        <i class="ti-user"></i>
+                        <i class="ti-comment-alt"></i>
                         <p>User Profile</p>
                     </a>
                 </li>
                 <c:choose>
                     <c:when test="${user.right=='2'}">
                         <li>
-                            <a href="keyword.jsp">
-                                <p>Keyword List</p>
+                            <a onclick="mysubmit('####')" href="">
+							<i class="ti-user"></i>
+                                <p>User Management</p>
                             </a>
                         </li>
-                        <li>
-                            <a href="userM.jsp">
-                                <p>User Management</p>
+						<li>
+                            <a onclick="mysubmit('####')" href="">
+							<i class="ti-view-list-alt"></i>
+                                <p>Keyword List</p>
                             </a>
                         </li>
                     </c:when>
@@ -78,7 +80,8 @@
                     </c:when>
                     <c:otherwise>
                         <li>
-                            <a href="analysis.jsp">
+                            <a onclick="mysubmit('####')" href="">
+							<i class="ti-gallery"></i>
                                 <p>Data Analysis</p>
                             </a>
                         </li>
@@ -86,7 +89,7 @@
                 </c:choose>
 			    <li class="active-pro">
                     <a href="/">
-                        <i class="ti-export"></i>
+                        <i class="ti-share-alt"></i>
                         <p>Login Out</p>
                     </a>
                 </li>
@@ -215,9 +218,6 @@
 
     <!--  Notifications Plugin    -->
     <script src="js/bootstrap-notify.js"></script>
-
-    <!--  Google Maps Plugin    -->
-    <%--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>--%>
 
     <!-- Paper Dashboard Core javascript and methods for Demo purpose -->
 	<script src="js/paper-dashboard.js"></script>

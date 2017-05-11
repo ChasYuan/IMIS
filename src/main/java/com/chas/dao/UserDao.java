@@ -2,6 +2,7 @@ package com.chas.dao;
 import com.chas.model.User;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -37,4 +38,6 @@ public interface UserDao {
     User selectUserByEmailAndPhone(Map map);
 
     int insertUser(User user);
+
+    List<User> selectAllUser();
 }
