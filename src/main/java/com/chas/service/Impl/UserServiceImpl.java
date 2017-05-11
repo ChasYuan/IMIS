@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by ShirUshI on 2017/5/8.
@@ -25,7 +26,11 @@ public class UserServiceImpl implements UserService{
 
 
     public HashMap selectUserWithTypeByName(String userName){
-        return userDao.selectUserWithTypeByName(userName);
+        HashMap map = userDao.selectUserWithTypeByName(userName);
+        if(map == null)
+            return null;
+        else
+            return map;
     }
 
     public String checkLogin(String userName, String password){
@@ -48,7 +53,11 @@ public class UserServiceImpl implements UserService{
     }
 
     public User selectUserByName(String userName){
-        return userDao.selectUserByName(userName);
+        User user = userDao.selectUserByName(userName);
+        if(user != null)
+            return user;
+        else
+            return null;
     }
 
     public boolean userUpdateCheck(User user){
@@ -58,6 +67,17 @@ public class UserServiceImpl implements UserService{
         }
         else
             return true;
+    }
+
+    public User selectUserByEmailAndPhone(String email, String phone){
+        HashMap map = new HashMap();
+        map.put("email",email);
+        map.put("phone",phone);
+        return userDao.selectUserByEmailAndPhone(map);
+    }
+
+    public int insertUser(User user){
+        return userDao.insertUser(user);
     }
 
 }

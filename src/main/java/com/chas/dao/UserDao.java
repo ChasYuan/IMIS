@@ -2,6 +2,7 @@ package com.chas.dao;
 import com.chas.model.User;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by ShirUshI on 2017/5/8.
@@ -32,4 +33,8 @@ public interface UserDao {
     void updateUser(User user);
 
     User selectUserById(int id);
+
+    User selectUserByEmailAndPhone(Map map);
+
+    int insertUser(User user);
 }

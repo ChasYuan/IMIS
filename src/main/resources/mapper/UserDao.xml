@@ -22,9 +22,18 @@
         SELECT * FROM `user` WHERE `id` = #{id}
     </select>
 
+    <select id="selectUserByEmailAndPhone" parameterType="java.util.HashMap" resultType="com.chas.model.User">
+        SELECT * FROM  `user` WHERE `email` = #{email} AND `phone` = #{phone}
+    </select>
+
     <update id="updateUser" parameterType="com.chas.model.User" >
         UPDATE `user`
-        SET username = #{username}, email = #{email}, phone = #{phone}
+        SET username = #{username}, email = #{email}, phone = #{phone}, password = #{password}
         WHERE id=#{id}
     </update>
+
+    <insert id="insertUser" parameterType="com.chas.model.User">
+        INSERT INTO `user`(`username`, `password`, `email`, `phone`, `right`)
+        VALUES (#{username},#{password},#{email},#{phone},#{right})
+    </insert>
 </mapper>

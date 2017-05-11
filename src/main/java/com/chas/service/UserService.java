@@ -1,6 +1,7 @@
 package com.chas.service;
 import com.chas.model.User;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by ShirUshI on 2017/5/8.
@@ -35,4 +36,8 @@ public interface UserService {
     User selectUserById(int id);
 
     boolean userUpdateCheck(User user);
+
+    User selectUserByEmailAndPhone(String email, String phone);
+
+    int insertUser(User user);
 }

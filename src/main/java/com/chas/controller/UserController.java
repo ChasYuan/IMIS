@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by ShirUshI on 2017/5/8.
@@ -33,15 +36,6 @@ public class UserController {
         return mav;
     }
 
-    @RequestMapping("/searchUser")
-    public String searchUser(String username){
-        User user = userService.selectUserByName(username);
-        if(user != null)
-            return "Invalid Username";
-        else
-            return "success";
-    }
-
     @RequestMapping("/")
     public String index(){
         return "index";
@@ -50,7 +44,7 @@ public class UserController {
     @RequestMapping(value="/login",method=RequestMethod.POST)
     public String login(String username, String password, RedirectAttributes attributes){
         if(username == "" || password == ""){
-          attributes.addFlashAttribute("errorMsg","Please enter complete information.");
+          attributes.addFlashAttribute("msg","Please enter complete information.");
             return "redirect:/error";
         }
         String result = userService.checkLogin(username, password);
@@ -68,18 +62,51 @@ public class UserController {
     }
 
     @RequestMapping("/profile")
-    public String profile(){
+    public String profile(HttpServletRequest request, RedirectAttributes attr){
+        Map map = RequestContextUtils.getInputFlashMap(request);
+        if(map == null){
+            attr.addFlashAttribute("errorMsg","Invalid Access.");
+            return "redirect:/error";
+        }
         return "userP";
     }
 
     @RequestMapping("/error")
-    public String error(){
+    public String error(HttpServletRequest request, RedirectAttributes attr){
+        Map map = RequestContextUtils.getInputFlashMap(request);
+        if(map == null){
+            attr.addFlashAttribute("errorMsg","Invalid Access.");
+            return "redirect:/error";
+        }
         return "error";
     }
 
     @RequestMapping(value = "/updateuser",method = RequestMethod.POST)
     public String updateUser(int userid, String username, String email, String phone, RedirectAttributes attr){
         User user = userService.selectUserById(userid);
+        if(username.equals("") || !username.matches("\\w*")){
+            attr.addFlashAttribute("msg","Update failed! Invalid User Name.");
+            attr.addFlashAttribute("user",user);
+            return "redirect:/profile";
+        }
+
+        if(email.equals("")){
+            attr.addFlashAttribute("msg","Update failed! Invalid Email.");
+            attr.addFlashAttribute("user",user);
+            return "redirect:/profile";
+        }
+
+        if(phone.equals("") || !phone.matches("\\d*")){
+            attr.addFlashAttribute("msg","Update failed! Invalid Phone Number.");
+            attr.addFlashAttribute("user",user);
+            return "redirect:/profile";
+        }
+        User old = userService.selectUserByName(username);
+        if(old != null && old.getId() != userid){
+            attr.addFlashAttribute("msg","Update failed! Duplicate User Name.");
+            attr.addFlashAttribute("user",user);
+            return "redirect:/profile";
+        }
         user.setUsername(username);
         user.setEmail(email);
         user.setPhone(phone);
@@ -97,4 +124,103 @@ public class UserController {
         }
 
     }
+
+    @RequestMapping("/forget")
+    public String forget(){
+        return "forget";
+    }
+
+    @RequestMapping("/findPwd")
+    public String forgetPassword(String email, String phone, RedirectAttributes attr){
+        if(email.equals("")){
+            attr.addFlashAttribute("errorMsg","Email cannot be none.");
+            return "redirect:/error";
+        }
+        if(phone.equals("")){
+            attr.addFlashAttribute("errorMsg","Phone Number cannot be none.");
+            return "redirect:/error";
+        }
+
+        User user = userService.selectUserByEmailAndPhone(email, phone);
+        if(user == null){
+            attr.addFlashAttribute("errorMsg","Email or Phone Number is incorrect.");
+            return "redirect:/error";
+        }
+        else {
+            attr.addFlashAttribute("user",user);
+            return "redirect:/reset";
+        }
+    }
+
+    @RequestMapping("/reset")
+    public String reset(HttpServletRequest request, RedirectAttributes attr){
+        Map map = RequestContextUtils.getInputFlashMap(request);
+        if(map == null){
+            attr.addFlashAttribute("errorMsg","Invalid Access.");
+            return "redirect:/error";
+        }
+        return "reset";
+    }
+
+    @RequestMapping("/resetPwd")
+    public String resetPwd(int userid, String newPwd, String newPwdCheck, RedirectAttributes attr){
+        if(newPwd.equals("") || newPwdCheck.equals("")){
+            attr.addFlashAttribute("errorMsg","Password cannot be none.");
+            return "redirect:/error";
+        }
+
+        if(!newPwd.equals(newPwdCheck)){
+            attr.addFlashAttribute("errorMsg","Password cannot match.");
+            return "redirect:/error";
+        }
+
+        User user = userService.selectUserById(userid);
+        user.setPassword(newPwd);
+        userService.updateUser(user);
+        return "index";
+    }
+
+    @RequestMapping("/signup")
+    public String signPage(){
+        return "signup";
+    }
+
+    @RequestMapping("/createUser")
+    public String signUp(String username, String newPwd, String newPwdCheck, String email, String phone, int rightid, RedirectAttributes attr){
+        if(username.equals("") || !username.matches("\\w*") || userService.selectUserByName(username) != null){
+            attr.addFlashAttribute("errorMsg","Invalid User Name.");
+            return "redirect:/error";
+        }
+
+        if(newPwd.equals("") || newPwdCheck.equals("")){
+            attr.addFlashAttribute("errorMsg","Password cannot be none.");
+            return "redirect:/error";
+        }
+
+        if(!newPwd.equals(newPwdCheck)){
+            attr.addFlashAttribute("errorMsg","Password cannot match.");
+            return "redirect:/error";
+        }
+
+        if(email.equals("")){
+            attr.addFlashAttribute("errorMsg","Invalid Email.");
+            return "redirect:/error";
+        }
+
+        if(phone.equals("") || !phone.matches("\\d*")){
+            attr.addFlashAttribute("errorMsg","Invalid Phone Number.");
+            return "redirect:/error";
+        }
+
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(newPwd);
+        user.setEmail(email);
+        user.setPhone(phone);
+        user.setRight(rightid);
+        userService.insertUser(user);
+        return "index";
+    }
+
+
 }
