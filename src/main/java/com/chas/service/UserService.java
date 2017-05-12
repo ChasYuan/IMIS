@@ -1,6 +1,7 @@
 package com.chas.service;
 import com.chas.model.User;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -40,4 +41,8 @@ public interface UserService {
     User selectUserByEmailAndPhone(String email, String phone);
 
     int insertUser(User user);
+
+    List<User> selectAllUser();
+
+    void deleteUserById(int id);
 }

@@ -1,6 +1,8 @@
 package com.chas.controller;
 
+import com.chas.model.Right;
 import com.chas.model.User;
+import com.chas.service.RightService;
 import com.chas.service.UserService;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.slf4j.Logger;
@@ -16,6 +18,7 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -28,12 +31,28 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private RightService rightService;
+
     @RequestMapping("/usermg")
-    public ModelAndView list(){
-        ModelAndView mav = new ModelAndView("userM");
-        HashMap user = userService.selectUserWithTypeByName("chas");
-       mav.addObject("user",user);
-        return mav;
+    public String userMg(HttpServletRequest request, RedirectAttributes attr){
+        Map map = RequestContextUtils.getInputFlashMap(request);
+        if(map == null){
+            attr.addFlashAttribute("errorMsg","Invalid Access.");
+            return "redirect:/error";
+        }
+        return "userM";
+    }
+
+    @RequestMapping("/userList")
+    public String userList(String username, String password, RedirectAttributes attr){
+        List<User> list = userService.selectAllUser();
+        User user = userService.selectUserByName(username);
+        List<Right> rightList = rightService.selectAllRight();
+        attr.addFlashAttribute("user",user);
+        attr.addFlashAttribute("list",list);
+        attr.addFlashAttribute("rightList",rightList);
+        return "redirect:/usermg";
     }
 
     @RequestMapping("/")
@@ -81,8 +100,67 @@ public class UserController {
         return "error";
     }
 
+    @RequestMapping(value = "/updateusermg",method = RequestMethod.POST)
+    public String updateUserMg(int userid, String email, String phone, int rightid, String curusername, RedirectAttributes attr){
+        User user = userService.selectUserById(userid);
+
+        if(email.equals("")){
+            attr.addFlashAttribute("msg","Update failed! Invalid Email.");
+            List<User> list = userService.selectAllUser();
+            List<Right> rightList = rightService.selectAllRight();
+            attr.addFlashAttribute("list",list);
+            attr.addFlashAttribute("rightList",rightList);
+            attr.addFlashAttribute("user",userService.selectUserByName(curusername));
+            return "redirect:/usermg";
+        }
+
+        if(phone.equals("") || !phone.matches("\\d*")){
+            attr.addFlashAttribute("msg","Update failed! Invalid Phone Number.");
+            List<User> list = userService.selectAllUser();
+            List<Right> rightList = rightService.selectAllRight();
+            attr.addFlashAttribute("list",list);
+            attr.addFlashAttribute("rightList",rightList);
+            attr.addFlashAttribute("user",userService.selectUserByName(curusername));
+            return "redirect:/usermg";
+        }
+        if(rightid > 2 || rightid < 0){
+            attr.addFlashAttribute("msg","Update failed! Invalid Right.");
+            List<User> list = userService.selectAllUser();
+            List<Right> rightList = rightService.selectAllRight();
+            attr.addFlashAttribute("list",list);
+            attr.addFlashAttribute("rightList",rightList);
+            attr.addFlashAttribute("user",userService.selectUserByName(curusername));
+            return "redirect:/usermg";
+        }
+
+        user.setEmail(email);
+        user.setPhone(phone);
+        user.setRight(rightid);
+        if(userService.userUpdateCheck(user)){
+            userService.updateUser(user);
+            attr.addFlashAttribute("msg","Change completed");
+            List<Right> rightList = rightService.selectAllRight();
+            List<User> list = userService.selectAllUser();
+            attr.addFlashAttribute("list",list);
+            attr.addFlashAttribute("rightList",rightList);
+            attr.addFlashAttribute("user",userService.selectUserByName(curusername));
+            return "redirect:/usermg";
+        }
+        else
+        {
+            attr.addFlashAttribute("msg","No information changed");
+            List<User> list = userService.selectAllUser();
+            List<Right> rightList = rightService.selectAllRight();
+            attr.addFlashAttribute("list",list);
+            attr.addFlashAttribute("rightList",rightList);
+            attr.addFlashAttribute("user",userService.selectUserByName(curusername));
+            return "redirect:/usermg";
+        }
+
+    }
+
     @RequestMapping(value = "/updateuser",method = RequestMethod.POST)
-    public String updateUser(int userid, String username, String email, String phone, RedirectAttributes attr){
+    public String updateUser(int userid, String username, String email, String phone, int rightid, RedirectAttributes attr){
         User user = userService.selectUserById(userid);
         if(username.equals("") || !username.matches("\\w*")){
             attr.addFlashAttribute("msg","Update failed! Invalid User Name.");
@@ -101,6 +179,11 @@ public class UserController {
             attr.addFlashAttribute("user",user);
             return "redirect:/profile";
         }
+        if(rightid > 2 || rightid < 0){
+            attr.addFlashAttribute("msg","Update failed! Invalid Right.");
+            attr.addFlashAttribute("user",user);
+            return "redirect:/profile";
+        }
         User old = userService.selectUserByName(username);
         if(old != null && old.getId() != userid){
             attr.addFlashAttribute("msg","Update failed! Duplicate User Name.");
@@ -110,6 +193,7 @@ public class UserController {
         user.setUsername(username);
         user.setEmail(email);
         user.setPhone(phone);
+        user.setRight(rightid);
         if(userService.userUpdateCheck(user)){
             userService.updateUser(user);
             attr.addFlashAttribute("user",user);
@@ -220,6 +304,18 @@ public class UserController {
         user.setRight(rightid);
         userService.insertUser(user);
         return "redirect:/";
+    }
+
+
+    @RequestMapping("/deleteuser")
+    public String deleteUser(int userid, String curusername, RedirectAttributes attr){
+        userService.deleteUserById(userid);
+        List<User> list = userService.selectAllUser();
+        List<Right> rightList = rightService.selectAllRight();
+        attr.addFlashAttribute("list",list);
+        attr.addFlashAttribute("rightList",rightList);
+        attr.addFlashAttribute("user",userService.selectUserByName(curusername));
+        return "redirect:/usermg";
     }
 
 

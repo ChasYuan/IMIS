@@ -46,15 +46,15 @@
                 <form method="post" id="sidebarForm">
                     <input type="hidden" name="username" value="${user.username}">
                     <input type="hidden" name="password" value="${user.password}">
-                <a onclick="mysubmit('login')" href="" class="simple-text">
+                <a href="javascript:mysubmit('login')" class="simple-text">
                     DCAA SYSTEM
                 </a>
                 </form>
             </div>
 
             <ul class="nav">
-				<li>
-                    <a onclick="mysubmit('login')" href="">
+				<li class="active">
+                    <a href="javascript:mysubmit('login')">
                         <i class="ti-comment-alt"></i>
                         <p>User Profile</p>
                     </a>
@@ -62,13 +62,13 @@
                 <c:choose>
                     <c:when test="${user.right=='2'}">
                         <li>
-                            <a onclick="mysubmit('####')" href="">
+                            <a href="javascript:mysubmit('userList')">
 							<i class="ti-user"></i>
                                 <p>User Management</p>
                             </a>
                         </li>
 						<li>
-                            <a onclick="mysubmit('####')" href="">
+                            <a href="javascript:mysubmit('login')">
 							<i class="ti-view-list-alt"></i>
                                 <p>Keyword List</p>
                             </a>
@@ -79,8 +79,8 @@
                     <c:when test="${user.right == '0'}">
                     </c:when>
                     <c:otherwise>
-                        <li class="active">
-                            <a onclick="mysubmit('####')" href="">
+                        <li>
+                            <a href="javascript:mysubmit('login')">
 							<i class="ti-gallery"></i>
                                 <p>Data Analysis</p>
                             </a>

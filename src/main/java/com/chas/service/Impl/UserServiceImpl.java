@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 /**
  * Created by ShirUshI on 2017/5/8.
@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService{
 
     public boolean userUpdateCheck(User user){
         User old = userDao.selectUserById(user.getId());
-        if(old.getUsername().equals(user.getUsername()) && user.getEmail().equals(old.getEmail()) && user.getPhone().equals(old.getPhone())){
+        if(old.getUsername().equals(user.getUsername()) && user.getEmail().equals(old.getEmail()) && user.getPhone().equals(old.getPhone()) && user.getRight()==old.getRight()){
             return false;
         }
         else
@@ -78,6 +78,14 @@ public class UserServiceImpl implements UserService{
 
     public int insertUser(User user){
         return userDao.insertUser(user);
+    }
+
+    public List<User> selectAllUser(){
+        return userDao.selectAllUser();
+    }
+
+    public void deleteUserById(int id){
+        userDao.deleteUserById(id);
     }
 
 }

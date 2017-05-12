@@ -40,4 +40,6 @@ public interface UserDao {
     int insertUser(User user);
 
     List<User> selectAllUser();
+
+    void deleteUserById(int id);
 }

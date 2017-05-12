@@ -26,13 +26,13 @@
         SELECT * FROM  `user` WHERE `email` = #{email} AND `phone` = #{phone}
     </select>
 
-    <select id="selectAllUser" resultType="java.util.ArrayList">
-
+    <select id="selectAllUser" resultType="com.chas.model.User">
+        select * FROM `user`
     </select>
 
     <update id="updateUser" parameterType="com.chas.model.User" >
         UPDATE `user`
-        SET username = #{username}, email = #{email}, phone = #{phone}, password = #{password}
+        SET username = #{username}, email = #{email}, phone = #{phone}, password = #{password}, `right` = #{right}
         WHERE id=#{id}
     </update>
 
@@ -41,4 +41,8 @@
         INSERT INTO `user`(`username`, `password`, `email`, `phone`, `right`)
         VALUES (#{username},#{password},#{email},#{phone},#{right})
     </insert>
+
+    <delete id="deleteUserById" parameterType="java.lang.Integer">
+        DELETE FROM `user` WHERE `id` = #{id}
+    </delete>
 </mapper>

@@ -46,7 +46,7 @@
                 <form method="post" id="sidebarForm">
                     <input type="hidden" name="username" value="${user.username}">
                     <input type="hidden" name="password" value="${user.password}">
-                <a onclick="mysubmit('login')" href="" class="simple-text">
+                <a href="javascript:mysubmit('login')" class="simple-text">
                     DCAA SYSTEM
                 </a>
                 </form>
@@ -54,7 +54,7 @@
 
             <ul class="nav">
 				<li>
-                    <a onclick="mysubmit('login')" href="">
+                    <a href="javascript:mysubmit('login')">
                         <i class="ti-comment-alt"></i>
                         <p>User Profile</p>
                     </a>
@@ -62,13 +62,13 @@
                 <c:choose>
                     <c:when test="${user.right=='2'}">
                         <li class="active">
-                            <a onclick="mysubmit('####')" href="">
+                            <a href="javascript:mysubmit('userList')">
 							<i class="ti-user"></i>
                                 <p>User Management</p>
                             </a>
                         </li>
 						<li>
-                            <a onclick="mysubmit('####')" href="">
+                            <a href="javascript:mysubmit('login')">
 							<i class="ti-view-list-alt"></i>
                                 <p>Keyword List</p>
                             </a>
@@ -80,7 +80,7 @@
                     </c:when>
                     <c:otherwise>
                         <li>
-                            <a onclick="mysubmit('####')" href="">
+                            <a href="javascript:mysubmit('login')">
 							<i class="ti-gallery"></i>
                                 <p>Data Analysis</p>
                             </a>
@@ -107,45 +107,45 @@
                         <span class="icon-bar bar2"></span>
                         <span class="icon-bar bar3"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Dashboard</a>
+                    <a class="navbar-brand" href="#">User Management</a>
                 </div>
-                
+                <div class="collapse navbar-collapse"></div>
             </div>
         </nav>
 
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
-					<div class="col-md-8 col-md-offset-2">
+					<div class="col-md-12">
                         <div class="card">
-                            <div class="header text-center">
+                            <div class="header">
                                 <h3 class="title">User</h3>
-                                <p class="category">For Example</p>
+                                <p class="category">Manage User</p>
 								<br>
                             </div>
-                            <div class="content table-responsive table-full-width table-upgrade">
-                                <table class="table">
+                            <div class="content table-responsive table-full-width">
+                                <table class="table  table-striped">
                                     <thead>
                                         <th>Name</th>
-                                    	<th class="text-center">Email</th>
-                                    	<th class="text-center">Phone</th>
+                                    	<th>Email</th>
+                                    	<th>Phone</th>
 										<th>Right</th>
+                                        <th class="text-center">Update</th>
+                                        <th class="text-center">Delete</th>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>test</td>
-                                            <td>test</td>
-                                            <td>test</td>
-                                            <td>test</td>
-                                        <%--<td><i class="fa fa-check text-success"></td>--%>
-                                        </tr>
-                                        <tr>
-                                        	<td>${user.userName}</td>
-                                        	<td>${user.email}</td>
-                                        	<td>${user.phone}</td>
-                                            <td>${user.rightType}</td>
-											<%--<td><i class="fa fa-check text-success"></td>--%>
-                                        </tr>
+                                    <c:forEach items="${list}" var="item" varStatus="status">
+                                        <tr><form action="/updateusermg" method="post" id="userMgForm${item.id}">
+                                            <input type="hidden" name="userid" value="${item.id}" />
+                                            <input type="hidden" name="curusername" value="${user.username}" />
+                                            <td>${item.username}</td>
+                                            <td><input type="text" name="email" value="${item.email}" /></td>
+                                            <td><input type="text" name="phone" value="${item.phone}" /></td>
+                                            <td><input type="text" name="rightid" value="${item.right}" /></td>
+                                            <td class="text-center"><a href="javascript:submituser(${item.id})"><i class="fa fa-check text-success" /></a></td></form>
+                                            <form action="/deleteuser" method="post" id="deleteForm${item.id}"><td class="text-center"><input type="hidden" name="userid" value="${item.id}" /><input type="hidden" name="curusername" value="${user.username}"/>
+                                                <a href="javascript:deleteuser(${item.id})"><i class="fa fa-times text-danger" /></a></td></form>
+                                        </tr> </c:forEach>
                                     </tbody>
                                 </table>
                             </div>
@@ -183,4 +183,41 @@
 
 <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 <script src="js/demo.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        demo.initChartist();
+
+        if(${msg == null}){
+
+        }
+        else{
+        $.notify({
+            message: "${msg}"
+
+        },{
+            type: 'success',
+            timer: 4000
+        });
+        }
+    });
+</script>
+
+<script type="text/javascript">
+    function mysubmit(text) {
+        $("#sidebarForm").attr("action","/"+text);
+        $("#sidebarForm").submit();
+    }
+</script>
+<script type="text/javascript">
+    function submituser(text) {
+        $("#userMgForm"+text).submit();
+    }
+</script>
+<script type="text/javascript">
+    function deleteuser(text) {
+
+        $("#deleteForm"+text).submit();
+    }
+</script>
 </html>
