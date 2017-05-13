@@ -53,7 +53,7 @@
             </div>
 
             <ul class="nav">
-				<li class="active">
+				<li>
                     <a href="javascript:mysubmit('login')">
                         <i class="ti-comment-alt"></i>
                         <p>User Profile</p>
@@ -67,8 +67,8 @@
                                 <p>User Management</p>
                             </a>
                         </li>
-						<li>
-                            <a href="javascript:mysubmit('login')">
+						<li class="active">
+                            <a href="javascript:mysubmit('listAllKeyword')">
 							<i class="ti-view-list-alt"></i>
                                 <p>Keyword List</p>
                             </a>
@@ -107,9 +107,10 @@
                         <span class="icon-bar bar2"></span>
                         <span class="icon-bar bar3"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Table List</a>
+                    <a class="navbar-brand" href="#">Keyword List</a>
                 </div>
-                
+                <div class="collapse navbar-collapse">
+                </div>
             </div>
         </nav>
 
@@ -121,105 +122,91 @@
                         <div class="card">
                             <div class="header">
                                 <h4 class="title">Keyword</h4>
-                                <p class="category">Here is a example</p>
+                                <p class="category">Manage Keyword</p>
                             </div>
                             <div class="content table-responsive table-full-width">
                                 <table class="table table-striped">
                                     <thead>
-                                        <th>keyword</th>
-                                    	<th>aspect</th>
-                                    	<th>score</th>
+                                        <th>序号</th>
+                                        <th>关键词</th>
+                                    	<th>维度</th>
+                                    	<th>程度</th>
+                                        <th class="text-center">更新</th>
+                                        <th class="text-center">删除</th>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                        	<td>美味</td>
-                                        	<td>餐饮产品</td>
-                                        	<td>1</td>
+                                    <c:forEach items="${keywordList}" var="keyword" varStatus="status" >
+                                        <tr><form action="/updatekeyword" method="post" id="keywordForm${keyword.id}">
+                                            <input type="hidden" name="id" value="${keyword.id}" />
+                                            <input type="hidden" name="curusername" value="${user.username}" />
+                                            <td>${status.count}</td>
+                                        	<td><input type="hidden" name="word" value="${keyword.word}">${keyword.word}</td>
+                                        	<td><input type="hidden" name="aspectId" value="${keyword.aspectId}" />${keyword.desc}</td>
+                                        	<td><input type="text" name="score" value="${keyword.score}"></td>
+                                            <td class="text-center"><a href="javascript:submitkeyword(${keyword.id})"><i class="fa fa-check text-success" /></a></td></form>
+                                            <form action="/deletekeyword" method="post" id="deleteForm${keyword.id}"><td class="text-center">
+                                                <input type="hidden" name="id" value="${keyword.id}" />
+                                                <input type="hidden" name="curusername" value="${user.username}"/>
+                                                <a href="javascript:deletekeyword(${keyword.id})"><i class="fa fa-times text-danger" /></a></td></form>
                                         </tr>
-                                        <tr>
-                                        	<td>新鲜</td>
-                                        	<td>餐饮产品</td>
-                                        	<td>1</td>
-                                        </tr>
-                                        <tr>
-                                        	<td>好吃</td>
-                                        	<td>餐饮产品</td>
-                                        	<td>1</td>
-                                        </tr>
-                                        <tr>
-                                        	<td>味道正</td>
-                                        	<td>餐饮产品</td>
-                                        	<td>1</td>
-                                        </tr>
-                                        <tr>
-                                        	<td>难吃</td>
-                                        	<td>餐饮产品</td>
-                                        	<td>-1</td>
-                                        </tr>
-                                        <tr>
-                                        	<td>份量足</td>
-                                        	<td>餐饮产品</td>
-                                        	<td>1</td>
-                                        </tr>
+                                    </c:forEach>
                                     </tbody>
                                 </table>
-
                             </div>
                         </div>
                     </div>
 
 
-                    <div class="col-md-12">
-                        <div class="card card-plain">
-                            <div class="header">
-                                <h4 class="title">Table on Plain Background</h4>
-                                <p class="category">Here is a subtitle for this table</p>
-                            </div>
-                            <div class="content table-responsive table-full-width">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <th>keyword</th>
-                                    	<th>aspect</th>
-                                    	<th>score</th>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                        	<td>美味</td>
-                                        	<td>餐饮产品</td>
-                                        	<td>1</td>
-                                        </tr>
-                                        <tr>
-                                        	<td>新鲜</td>
-                                        	<td>餐饮产品</td>
-                                        	<td>1</td>
-                                        </tr>
-                                        <tr>
-                                        	<td>好吃</td>
-                                        	<td>餐饮产品</td>
-                                        	<td>1</td>
-                                        </tr>
-                                        <tr>
-                                        	<td>味道正</td>
-                                        	<td>餐饮产品</td>
-                                        	<td>1</td>
-                                        </tr>
-                                        <tr>
-                                        	<td>难吃</td>
-                                        	<td>餐饮产品</td>
-                                        	<td>-1</td>
-                                        </tr>
-                                        <tr>
-                                        	<td>份量足</td>
-                                        	<td>餐饮产品</td>
-                                        	<td>1</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                    <%--<div class="col-md-12">--%>
+                        <%--<div class="card card-plain">--%>
+                            <%--<div class="header">--%>
+                                <%--<h4 class="title">Table on Plain Background</h4>--%>
+                                <%--<p class="category">Here is a subtitle for this table</p>--%>
+                            <%--</div>--%>
+                            <%--<div class="content table-responsive table-full-width">--%>
+                                <%--<table class="table table-hover">--%>
+                                    <%--<thead>--%>
+                                        <%--<th>keyword</th>--%>
+                                    	<%--<th>aspect</th>--%>
+                                    	<%--<th>score</th>--%>
+                                    <%--</thead>--%>
+                                    <%--<tbody>--%>
+                                        <%--<tr>--%>
+                                        	<%--<td>美味</td>--%>
+                                        	<%--<td>餐饮产品</td>--%>
+                                        	<%--<td>1</td>--%>
+                                        <%--</tr>--%>
+                                        <%--<tr>--%>
+                                        	<%--<td>新鲜</td>--%>
+                                        	<%--<td>餐饮产品</td>--%>
+                                        	<%--<td>1</td>--%>
+                                        <%--</tr>--%>
+                                        <%--<tr>--%>
+                                        	<%--<td>好吃</td>--%>
+                                        	<%--<td>餐饮产品</td>--%>
+                                        	<%--<td>1</td>--%>
+                                        <%--</tr>--%>
+                                        <%--<tr>--%>
+                                        	<%--<td>味道正</td>--%>
+                                        	<%--<td>餐饮产品</td>--%>
+                                        	<%--<td>1</td>--%>
+                                        <%--</tr>--%>
+                                        <%--<tr>--%>
+                                        	<%--<td>难吃</td>--%>
+                                        	<%--<td>餐饮产品</td>--%>
+                                        	<%--<td>-1</td>--%>
+                                        <%--</tr>--%>
+                                        <%--<tr>--%>
+                                        	<%--<td>份量足</td>--%>
+                                        	<%--<td>餐饮产品</td>--%>
+                                        	<%--<td>1</td>--%>
+                                        <%--</tr>--%>
+                                    <%--</tbody>--%>
+                                <%--</table>--%>
 
-                            </div>
-                        </div>
-                    </div>
-
+                            <%--</div>--%>
+                        <%--</div>--%>
+                    <%--</div>--%>
 
                 </div>
             </div>
@@ -252,5 +239,40 @@
 
 <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 <script src="js/demo.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
 
+        demo.initChartist();
+
+        if(${msg == null}){
+
+        }
+        else{
+            $.notify({
+                message: "${msg}"
+
+            },{
+                type: 'success',
+                timer: 4000
+            });
+        }
+    });
+</script>
+<script type="text/javascript">
+    function mysubmit(text) {
+        $("#sidebarForm").attr("action","/"+text);
+        $("#sidebarForm").submit();
+    }
+</script>
+<script type="text/javascript">
+    function submitkeyword(text) {
+        $("#keywordForm"+text).submit();
+    }
+</script>
+<script type="text/javascript">
+    function deletekeyword(text) {
+        if(confirm("确定要删除该关键词信息吗？")){
+            $("#deleteForm"+text).submit();}
+    }
+</script>
 </html>

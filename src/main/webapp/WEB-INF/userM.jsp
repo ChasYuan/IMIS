@@ -68,7 +68,7 @@
                             </a>
                         </li>
 						<li>
-                            <a href="javascript:mysubmit('login')">
+                            <a href="javascript:mysubmit('listAllKeyword')">
 							<i class="ti-view-list-alt"></i>
                                 <p>Keyword List</p>
                             </a>
@@ -143,7 +143,9 @@
                                             <td><input type="text" name="phone" value="${item.phone}" /></td>
                                             <td><input type="text" name="rightid" value="${item.right}" /></td>
                                             <td class="text-center"><a href="javascript:submituser(${item.id})"><i class="fa fa-check text-success" /></a></td></form>
-                                            <form action="/deleteuser" method="post" id="deleteForm${item.id}"><td class="text-center"><input type="hidden" name="userid" value="${item.id}" /><input type="hidden" name="curusername" value="${user.username}"/>
+                                            <form action="/deleteuser" method="post" id="deleteForm${item.id}"><td class="text-center">
+                                                <input type="hidden" name="userid" value="${item.id}" />
+                                                <input type="hidden" name="curusername" value="${user.username}"/>
                                                 <a href="javascript:deleteuser(${item.id})"><i class="fa fa-times text-danger" /></a></td></form>
                                         </tr> </c:forEach>
                                     </tbody>
@@ -216,8 +218,8 @@
 </script>
 <script type="text/javascript">
     function deleteuser(text) {
-
-        $("#deleteForm"+text).submit();
+        if(confirm("确定要删除该用户吗？")){
+        $("#deleteForm"+text).submit();}
     }
 </script>
 </html>

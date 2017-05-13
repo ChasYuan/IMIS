@@ -68,7 +68,7 @@
                             </a>
                         </li>
 						<li>
-                            <a href="javascript:mysubmit('login')">
+                            <a href="javascript:mysubmit('listAllKeyword')">
 							<i class="ti-view-list-alt"></i>
                                 <p>Keyword List</p>
                             </a>

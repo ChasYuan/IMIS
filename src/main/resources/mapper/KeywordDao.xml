@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.chas.dao.KeywordDao">
+    <select id="selectAllKeywordWithDesc" resultType="java.util.HashMap">
+        select a.`id` `id`, a.word word, a.aspectId aspectId, a.score score, b.`desc` `desc`
+        FROM keyword a, aspect b
+        WHERE a.aspectId = b.id
+    </select>
+
+    <select id="selectKeywordById" parameterType="java.lang.Integer" resultType="com.chas.model.Keyword">
+        select * from keyword where id=#{id}
+    </select>
+
+    <update id="updateKeyword" parameterType="com.chas.model.Keyword">
+        update keyword
+        set `word`=#{word}, `aspectId`=#{aspectId}, `score`=#{score}
+        where id=#{id};
+    </update>
+
+    <delete id="deleteKeywordById" parameterType="java.lang.Integer" >
+        DELETE FROM `keyword`
+        WHERE id=#{id}
+    </delete>
+</mapper>
