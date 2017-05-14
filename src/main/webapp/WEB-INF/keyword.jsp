@@ -123,6 +123,7 @@
                         <div class="card">
                             <div class="header">
                                 <form action="/createkeyword" method="post" id="createForm" class="form-inline">
+                                    <input type="hidden" name="curusername" value="${user.username}"/>
                                     <div class="form-group">
                                         <label for="exampleInputName2">关键词</label>
                                         <input type="text" class="form-control" id="exampleInputName2" name="word" placeholder="关键词">
@@ -141,7 +142,7 @@
                                         <label for="exampleInputName3">程度</label>
                                         <input type="text" class="form-control" id="exampleInputName3" name="score" value="0">
                                     </div>
-                                    <button type="button" class="btn btn-primary" onclick="createkeyword()">添加</button>
+                                    <button type="button" class="btn btn-success" onclick="createkeyword()">添加</button>
                                 </form>
                             </div>
                             <div class="content table-responsive table-full-width"></div>
@@ -153,10 +154,11 @@
                         <div class="card card-plain">
                             <div class="header">
                                 <h4 class="title">关键词</h4>
-                                <p class="category"><input class="form-control input-sm" type="text"  /></p>
+                                <p class="category"></p>
                             </div>
                             <div class="content table-responsive table-full-width">
-                                <table class="table table-hover">
+                                <form action="/searchkeyword" method="post" id="searchForm"><input type="hidden" name="curusername" value="${user.username}"><input class="form-control input-sm" type="text" name="keyword"/></form>
+                                <table class="table table-hover table-striped">
                                     <thead>
                                         <th>序号</th>
                                         <th>关键词</th>
@@ -310,5 +312,8 @@
     function createkeyword() {
         $("#createForm").submit();
     }
+
 </script>
+
+
 </html>

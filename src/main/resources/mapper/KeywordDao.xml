@@ -11,6 +11,13 @@
         ORDER BY `id` DESC
     </select>
 
+    <select id="selectKeywordByKeyword" parameterType="java.lang.String" resultType="java.util.HashMap">
+       select a.`id` `id`, a.word word, a.aspectId aspectId, a.score score, b.`desc` `desc`
+        FROM keyword a, aspect b
+        where a.aspectId = b.id AND word LIKE CONCAT(CONCAT('%', #{text}, '%'))
+        ORDER BY `id` DESC
+    </select>
+
     <select id="selectKeywordById" parameterType="java.lang.Integer" resultType="com.chas.model.Keyword">
         select * from keyword where id=#{id}
     </select>

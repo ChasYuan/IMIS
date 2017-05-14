@@ -18,4 +18,6 @@ public interface KeywordDao {
     void deleteKeywordById(int id);
 
     void insertKeyword(Keyword keyword);
+
+    List<HashMap> selectKeywordByKeyword(String keyword);
 }

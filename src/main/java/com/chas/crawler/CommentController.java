@@ -1,16 +1,22 @@
 package com.chas.crawler;
 
 
+import com.chas.service.Impl.ShopServiceImpl;
 import edu.uci.ics.crawler4j.crawler.CrawlConfig;
 import edu.uci.ics.crawler4j.crawler.CrawlController;
 import edu.uci.ics.crawler4j.fetcher.PageFetcher;
 import edu.uci.ics.crawler4j.robotstxt.RobotstxtConfig;
 import edu.uci.ics.crawler4j.robotstxt.RobotstxtServer;
 
+import java.util.List;
+
 /**
  * Created by ShirUshI on 2017/4/6.
  */
 public class CommentController {
+
+
+
     public static void main(String[] args) throws Exception {
         String crawlStorageFolder = "./data/comment";
         int numberOfCrawlers = 3;
@@ -38,6 +44,11 @@ public class CommentController {
          * URLs that are fetched and then the crawler starts following links
          * which are found in these pages
          */
+        ShopServiceImpl shopService = new ShopServiceImpl();
+        List<Integer> shopList = shopService.selectAllShopId();
+        String pre = "https://www.dianping.com/shop/";
+        String aft = "/review_more?pageno=1";
+
         controller.addSeed("https://www.dianping.com/shop/77298586/review_more?pageno=1");
 //        controller.addSeed("https://www.dianping.com/shop/77298586/review_more?pageno=2");
 //        controller.addSeed("https://www.dianping.com/search/category/1/10/g110");

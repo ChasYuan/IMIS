@@ -41,4 +41,8 @@ public class KeywordServiceImpl implements KeywordService{
     public void insertKeyword(Keyword keyword){
         keywordDao.insertKeyword(keyword);
     }
+
+    public List<HashMap> selectKeywordByKeyword(String keyword){
+        return keywordDao.selectKeywordByKeyword(keyword);
+    }
 }
