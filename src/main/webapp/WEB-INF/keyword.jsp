@@ -118,14 +118,45 @@
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
+
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">Keyword</h4>
-                                <p class="category">Manage Keyword</p>
+                                <form action="/createkeyword" method="post" id="createForm" class="form-inline">
+                                    <div class="form-group">
+                                        <label for="exampleInputName2">关键词</label>
+                                        <input type="text" class="form-control" id="exampleInputName2" name="word" placeholder="关键词">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail2">维度</label>
+                                        <select class="form-control" id="exampleInputEmail2" name="aspectId">
+                                            <option value="1">餐饮产品</option>
+                                            <option value="2">员工行为</option>
+                                            <option value="3">就餐环境</option>
+                                            <option value="4">价值感受</option>
+                                            <option value="5">品牌认知</option>
+                                            <option value="6">文明程度</option></select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputName3">程度</label>
+                                        <input type="text" class="form-control" id="exampleInputName3" name="score" value="0">
+                                    </div>
+                                    <button type="button" class="btn btn-primary" onclick="createkeyword()">添加</button>
+                                </form>
+                            </div>
+                            <div class="content table-responsive table-full-width"></div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-12">
+                        <div class="card card-plain">
+                            <div class="header">
+                                <h4 class="title">关键词</h4>
+                                <p class="category"><input class="form-control input-sm" type="text"  /></p>
                             </div>
                             <div class="content table-responsive table-full-width">
-                                <table class="table table-striped">
+                                <table class="table table-hover">
                                     <thead>
                                         <th>序号</th>
                                         <th>关键词</th>
@@ -142,7 +173,7 @@
                                             <td>${status.count}</td>
                                         	<td><input type="hidden" name="word" value="${keyword.word}">${keyword.word}</td>
                                         	<td><input type="hidden" name="aspectId" value="${keyword.aspectId}" />${keyword.desc}</td>
-                                        	<td><input type="text" name="score" value="${keyword.score}"></td>
+                                        	<td><input type="text" name="score" size="5" value="${keyword.score}"></td>
                                             <td class="text-center"><a href="javascript:submitkeyword(${keyword.id})"><i class="fa fa-check text-success" /></a></td></form>
                                             <form action="/deletekeyword" method="post" id="deleteForm${keyword.id}"><td class="text-center">
                                                 <input type="hidden" name="id" value="${keyword.id}" />
@@ -273,6 +304,11 @@
     function deletekeyword(text) {
         if(confirm("确定要删除该关键词信息吗？")){
             $("#deleteForm"+text).submit();}
+    }
+</script>
+<script type="text/javascript">
+    function createkeyword() {
+        $("#createForm").submit();
     }
 </script>
 </html>

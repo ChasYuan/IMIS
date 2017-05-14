@@ -8,6 +8,7 @@
         select a.`id` `id`, a.word word, a.aspectId aspectId, a.score score, b.`desc` `desc`
         FROM keyword a, aspect b
         WHERE a.aspectId = b.id
+        ORDER BY `id` DESC
     </select>
 
     <select id="selectKeywordById" parameterType="java.lang.Integer" resultType="com.chas.model.Keyword">
@@ -24,4 +25,10 @@
         DELETE FROM `keyword`
         WHERE id=#{id}
     </delete>
+
+    <insert id="insertKeyword" parameterType="com.chas.model.Keyword">
+        INSERT INTO `keyword`(`word`,`aspectId`,`score`)
+        VALUES (#{word},#{aspectId},#{score})
+    </insert>
+
 </mapper>

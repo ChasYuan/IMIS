@@ -124,7 +124,7 @@
 								<br>
                             </div>
                             <div class="content table-responsive table-full-width">
-                                <table class="table  table-striped">
+                                <table class="table">
                                     <thead>
                                         <th>Name</th>
                                     	<th>Email</th>
@@ -141,7 +141,7 @@
                                             <td>${item.username}</td>
                                             <td><input type="text" name="email" value="${item.email}" /></td>
                                             <td><input type="text" name="phone" value="${item.phone}" /></td>
-                                            <td><input type="text" name="rightid" value="${item.right}" /></td>
+                                            <td><input type="text" size="5" name="rightid" value="${item.right}" /></td>
                                             <td class="text-center"><a href="javascript:submituser(${item.id})"><i class="fa fa-check text-success" /></a></td></form>
                                             <form action="/deleteuser" method="post" id="deleteForm${item.id}"><td class="text-center">
                                                 <input type="hidden" name="userid" value="${item.id}" />

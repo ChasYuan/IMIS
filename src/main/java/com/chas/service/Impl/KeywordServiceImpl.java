@@ -37,4 +37,8 @@ public class KeywordServiceImpl implements KeywordService{
     public void deleteKeywordById(int id){
         keywordDao.deleteKeywordById(id);
     }
+
+    public void insertKeyword(Keyword keyword){
+        keywordDao.insertKeyword(keyword);
+    }
 }

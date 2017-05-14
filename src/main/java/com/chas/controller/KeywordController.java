@@ -110,10 +110,49 @@ public class KeywordController {
         List<HashMap> keywordList = keywordService.selectAllKeywordWithDesc();
         List<Aspect> aspectList = aspectService.selectAllAspect();
         attr.addFlashAttribute("aspectList",aspectList);
-        attr.addFlashAttribute("msg","删除用户成功！");
+        attr.addFlashAttribute("msg","删除关键词成功！");
         attr.addFlashAttribute("user",user);
         attr.addFlashAttribute("keywordList",keywordList);
         return "redirect:/keyword";
+    }
+
+    @RequestMapping("/createkeyword")
+    public String createKeyword(String word, int aspectId, int score, String curusername, RedirectAttributes attr){
+
+        User user = userService.selectUserByName(curusername);
+        List<Aspect> aspectList = aspectService.selectAllAspect();
+        if(word.equals("") || !word.matches("[\\u4e00-\\u9fa5]+")){
+            List<HashMap> keywordList = keywordService.selectAllKeywordWithDesc();
+            attr.addFlashAttribute("aspectList",aspectList);
+            attr.addFlashAttribute("msg","添加失败！非法关键词。");
+            attr.addFlashAttribute("user",user);
+            attr.addFlashAttribute("keywordList",keywordList);
+            return "redirect:/keyword";
+        }
+
+        if(score == 1 || score == -1){
+            Keyword keyword = new Keyword();
+            keyword.setWord(word);
+            keyword.setAspectId(aspectId);
+            keyword.setScore(score);
+            keywordService.insertKeyword(keyword);
+            attr.addFlashAttribute("msg","添加成功！");
+            List<HashMap> keywordList = keywordService.selectAllKeywordWithDesc();
+            attr.addFlashAttribute("user",user);
+            attr.addFlashAttribute("keywordList",keywordList);
+            attr.addFlashAttribute("aspectList",aspectList);
+            return "redirect:/keyword";
+        }
+        else{
+            List<HashMap> keywordList = keywordService.selectAllKeywordWithDesc();
+            attr.addFlashAttribute("aspectList",aspectList);
+            attr.addFlashAttribute("msg","添加失败！非法的程度信息。");
+            attr.addFlashAttribute("user",user);
+            attr.addFlashAttribute("keywordList",keywordList);
+            return "redirect:/keyword";
+        }
+
+
     }
 
 }

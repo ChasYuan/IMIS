@@ -17,4 +17,6 @@ public interface KeywordService {
     Keyword selectKeywordById(int id);
 
     void deleteKeywordById(int id);
+
+    void insertKeyword(Keyword keyword);
 }
