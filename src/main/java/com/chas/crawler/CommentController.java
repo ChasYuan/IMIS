@@ -8,6 +8,7 @@ import edu.uci.ics.crawler4j.fetcher.PageFetcher;
 import edu.uci.ics.crawler4j.robotstxt.RobotstxtConfig;
 import edu.uci.ics.crawler4j.robotstxt.RobotstxtServer;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -25,7 +26,7 @@ public class CommentController {
         config.setCrawlStorageFolder(crawlStorageFolder);
         config.setPolitenessDelay(1000);
         config.setIncludeHttpsPages(true);
-        config.setMaxDepthOfCrawling(0);
+        config.setMaxDepthOfCrawling(1);
         config.setResumableCrawling(true);
         config.setUserAgentString("Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 YaBrowser/17.3.1.840 Yowser/2.5 Safari/537.36");
 
@@ -44,12 +45,19 @@ public class CommentController {
          * URLs that are fetched and then the crawler starts following links
          * which are found in these pages
          */
-        ShopServiceImpl shopService = new ShopServiceImpl();
-        List<Integer> shopList = shopService.selectAllShopId();
-        String pre = "https://www.dianping.com/shop/";
-        String aft = "/review_more?pageno=1";
+//        ShopServiceImpl shopService = new ShopServiceImpl();
+//        List<Integer> shopList = shopService.selectAllShopId();
+//        String pre = "https://www.dianping.com/shop/";
+//        String aft = "/review_more?pageno=1";
+//        String url;
 
-        controller.addSeed("https://www.dianping.com/shop/77298586/review_more?pageno=1");
+//        Iterator<Integer> iter = shopList.iterator();
+//        while(iter.hasNext()){
+//            url = pre + iter.next() + aft;
+//            controller.addSeed(url);
+//        }
+
+        controller.addSeed("https://www.dianping.com/shop/77013723/review_more?pageno=1");
 //        controller.addSeed("https://www.dianping.com/shop/77298586/review_more?pageno=2");
 //        controller.addSeed("https://www.dianping.com/search/category/1/10/g110");
 //        controller.addSeed("https://www.dianping.com/search/category/1/10/g110p2");

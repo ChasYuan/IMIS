@@ -56,6 +56,7 @@ public class KeywordController {
         List<Aspect> aspectList = aspectService.selectAllAspect();
         attr.addFlashAttribute("aspectList",aspectList);
         attr.addFlashAttribute("user",user);
+        attr.addFlashAttribute("searchword","");
         attr.addFlashAttribute("keywordList",keywordList);
         return "redirect:/keyword";
     }
@@ -74,6 +75,7 @@ public class KeywordController {
                 attr.addFlashAttribute("aspectList",aspectList);
                 attr.addFlashAttribute("msg", "无信息更新！");
                 attr.addFlashAttribute("user", user);
+                attr.addFlashAttribute("searchword","");
                 attr.addFlashAttribute("keywordList", keywordList);
                 return "redirect:/keyword";
             }
@@ -84,7 +86,7 @@ public class KeywordController {
                 List<HashMap> keywordList = keywordService.selectAllKeywordWithDesc();
                 List<Aspect> aspectList = aspectService.selectAllAspect();
                 attr.addFlashAttribute("aspectList",aspectList);
-
+                attr.addFlashAttribute("searchword","");
                 attr.addFlashAttribute("msg", "更新成功！");
                 attr.addFlashAttribute("user", user);
                 attr.addFlashAttribute("keywordList", keywordList);
@@ -96,6 +98,7 @@ public class KeywordController {
             List<HashMap> keywordList = keywordService.selectAllKeywordWithDesc();
             List<Aspect> aspectList = aspectService.selectAllAspect();
             attr.addFlashAttribute("aspectList",aspectList);
+            attr.addFlashAttribute("searchword","");
             attr.addFlashAttribute("msg","更新失败！非法的程度信息。");
             attr.addFlashAttribute("user",user);
             attr.addFlashAttribute("keywordList",keywordList);
@@ -113,6 +116,7 @@ public class KeywordController {
         attr.addFlashAttribute("aspectList",aspectList);
         attr.addFlashAttribute("msg","删除关键词成功！");
         attr.addFlashAttribute("user",user);
+        attr.addFlashAttribute("searchword","");
         attr.addFlashAttribute("keywordList",keywordList);
         return "redirect:/keyword";
     }
@@ -127,6 +131,7 @@ public class KeywordController {
             attr.addFlashAttribute("aspectList",aspectList);
             attr.addFlashAttribute("msg","添加失败！非法关键词。");
             attr.addFlashAttribute("user",user);
+            attr.addFlashAttribute("searchword","");
             attr.addFlashAttribute("keywordList",keywordList);
             return "redirect:/keyword";
         }
@@ -140,6 +145,7 @@ public class KeywordController {
             attr.addFlashAttribute("msg","添加成功！");
             List<HashMap> keywordList = keywordService.selectAllKeywordWithDesc();
             attr.addFlashAttribute("user",user);
+            attr.addFlashAttribute("searchword","");
             attr.addFlashAttribute("keywordList",keywordList);
             attr.addFlashAttribute("aspectList",aspectList);
             return "redirect:/keyword";
@@ -149,6 +155,7 @@ public class KeywordController {
             attr.addFlashAttribute("aspectList",aspectList);
             attr.addFlashAttribute("msg","添加失败！非法的程度信息。");
             attr.addFlashAttribute("user",user);
+            attr.addFlashAttribute("searchword","");
             attr.addFlashAttribute("keywordList",keywordList);
             return "redirect:/keyword";
         }
@@ -163,6 +170,7 @@ public class KeywordController {
         List<Aspect> aspectList = aspectService.selectAllAspect();
         attr.addFlashAttribute("aspectList",aspectList);
         attr.addFlashAttribute("user",user);
+        attr.addFlashAttribute("searchword",keyword);
         attr.addFlashAttribute("keywordList",keywordList);
         return "redirect:/keyword";
     }

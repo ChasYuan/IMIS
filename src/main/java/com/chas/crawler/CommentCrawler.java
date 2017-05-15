@@ -42,18 +42,18 @@ public class CommentCrawler extends WebCrawler{
                 csv.delete();
             }
 
-            cw = new CsvWriter(new FileWriter(csv, true), ',');
-            cw.write("commentid");
-            cw.write("shopid");
-            cw.write("contribution");
-            cw.write("remark");
-            cw.write("taste");
-            cw.write("envir");
-            cw.write("service");
-            cw.write("detail");
-            cw.write("date");
-            cw.endRecord();
-            cw.close();
+//            cw = new CsvWriter(new FileWriter(csv, true), ',');
+//            cw.write("commentid");
+//            cw.write("shopid");
+//            cw.write("contribution");
+//            cw.write("remark");
+//            cw.write("taste");
+//            cw.write("envir");
+//            cw.write("service");
+//            cw.write("detail");
+//            cw.write("date");
+//            cw.endRecord();
+//            cw.close();
         }
     }
 
@@ -65,7 +65,7 @@ public class CommentCrawler extends WebCrawler{
     public boolean shouldVisit(Page referringPage, WebURL url) {
         String href = url.getURL().toLowerCase();
         return !FILTERS.matcher(href).matches()
-                && href.startsWith("https://www.dianping.com/shop/77298586/review_more?pageno=");
+                && href.startsWith(href.substring(0,href.length() - 2));
     }
 
     /**

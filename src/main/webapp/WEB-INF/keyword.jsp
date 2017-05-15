@@ -131,12 +131,16 @@
                                     <div class="form-group">
                                         <label for="exampleInputEmail2">维度</label>
                                         <select class="form-control" id="exampleInputEmail2" name="aspectId">
-                                            <option value="1">餐饮产品</option>
-                                            <option value="2">员工行为</option>
-                                            <option value="3">就餐环境</option>
-                                            <option value="4">价值感受</option>
-                                            <option value="5">品牌认知</option>
-                                            <option value="6">文明程度</option></select>
+                                            <%--<option value="1">餐饮产品</option>--%>
+                                            <%--<option value="2">员工行为</option>--%>
+                                            <%--<option value="3">就餐环境</option>--%>
+                                            <%--<option value="4">价值感受</option>--%>
+                                            <%--<option value="5">品牌认知</option>--%>
+                                            <%--<option value="6">文明程度</option>--%>
+                                            <c:forEach items="${aspectList}" var="aspect" >
+                                                <option value="${aspect.id}">${aspect.desc}</option>
+                                            </c:forEach>
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputName3">程度</label>
@@ -157,7 +161,7 @@
                                 <p class="category"></p>
                             </div>
                             <div class="content table-responsive table-full-width">
-                                <form action="/searchkeyword" method="post" id="searchForm"><input type="hidden" name="curusername" value="${user.username}"><input class="form-control input-sm" type="text" name="keyword"/></form>
+                                <form action="/searchkeyword" method="post" id="searchForm"><input type="hidden" name="curusername" value="${user.username}"><input class="form-control input-sm" type="text" name="keyword" value="${searchword}"/></form>
                                 <table class="table table-hover table-striped">
                                     <thead>
                                         <th>序号</th>
