@@ -8,6 +8,11 @@ import edu.uci.ics.crawler4j.fetcher.PageFetcher;
 import edu.uci.ics.crawler4j.robotstxt.RobotstxtConfig;
 import edu.uci.ics.crawler4j.robotstxt.RobotstxtServer;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -20,7 +25,7 @@ public class CommentController {
 
     public static void main(String[] args) throws Exception {
         String crawlStorageFolder = "./data/comment";
-        int numberOfCrawlers = 3;
+        int numberOfCrawlers = 5;
 
         CrawlConfig config = new CrawlConfig();
         config.setCrawlStorageFolder(crawlStorageFolder);
@@ -45,19 +50,36 @@ public class CommentController {
          * URLs that are fetched and then the crawler starts following links
          * which are found in these pages
          */
-//        ShopServiceImpl shopService = new ShopServiceImpl();
-//        List<Integer> shopList = shopService.selectAllShopId();
-//        String pre = "https://www.dianping.com/shop/";
-//        String aft = "/review_more?pageno=1";
-//        String url;
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            String url = "jdbc:mysql://localhost:3306/graduate?useUnicode=true&characterEncoding=utf8&useSSL=false";
+            Connection conn = DriverManager.getConnection(url,"root","1234");
+            Statement stmt = conn.createStatement();
 
-//        Iterator<Integer> iter = shopList.iterator();
-//        while(iter.hasNext()){
-//            url = pre + iter.next() + aft;
-//            controller.addSeed(url);
-//        }
+            String shopSql = "select id from `shop`";
+            ResultSet rs = stmt.executeQuery(shopSql);
+            List<Integer> shopList = new ArrayList<Integer>();
+            while(rs.next()){
+                shopList.add(rs.getInt(1));
+            }
 
-        controller.addSeed("https://www.dianping.com/shop/77013723/review_more?pageno=1");
+            String pre = "https://www.dianping.com/shop/";
+            String aft = "/review_more?pageno=1";
+            Iterator<Integer> shopIt = shopList.iterator();
+            while(shopIt.hasNext()){
+                int city = shopIt.next();
+               controller.addSeed(pre + city + aft);
+            }
+            stmt.close();
+            conn.close();
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+
+
+//        controller.addSeed("https://www.dianping.com/shop/77013723/review_more?pageno=1");
 //        controller.addSeed("https://www.dianping.com/shop/77298586/review_more?pageno=2");
 //        controller.addSeed("https://www.dianping.com/search/category/1/10/g110");
 //        controller.addSeed("https://www.dianping.com/search/category/1/10/g110p2");

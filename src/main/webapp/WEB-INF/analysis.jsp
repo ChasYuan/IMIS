@@ -53,7 +53,7 @@
             </div>
 
             <ul class="nav">
-				<li class="active">
+				<li>
                     <a href="javascript:mysubmit('login')">
                         <i class="ti-comment-alt"></i>
                         <p>User Profile</p>
@@ -79,7 +79,7 @@
                     <c:when test="${user.right == '0'}">
                     </c:when>
                     <c:otherwise>
-                        <li>
+                        <li class="active">
                             <a href="javascript:mysubmit('login')">
 							<i class="ti-gallery"></i>
                                 <p>Data Analysis</p>
@@ -108,7 +108,7 @@
                         <span class="icon-bar bar2"></span>
                         <span class="icon-bar bar3"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Dashboard</a>
+                    <a class="navbar-brand" href="#">数据分析</a>
                 </div>
                 
             </div>
