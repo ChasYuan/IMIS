@@ -8,4 +8,8 @@
         select id from `city`
     </select>
 
+    <select id="selectAllCity" resultType="com.chas.model.City">
+        select * from `city`
+    </select>
+
 </mapper>

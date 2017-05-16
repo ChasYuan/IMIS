@@ -1,5 +1,7 @@
 package com.chas.dao;
 
+import com.chas.model.Category;
+
 import java.util.List;
 
 /**
@@ -8,4 +10,6 @@ import java.util.List;
 public interface CategoryDao  {
 
     List<String> selectAllCategoryId();
+
+    List<Category> selectAllCategory();
 }

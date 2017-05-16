@@ -1,5 +1,7 @@
 package com.chas.dao;
 
+import com.chas.model.Shop;
+
 import java.util.List;
 
 /**
@@ -8,4 +10,6 @@ import java.util.List;
 public interface ShopDao {
 
     List<Integer> selectAllShopId();
+
+    List<Shop> selectAllShop();
 }

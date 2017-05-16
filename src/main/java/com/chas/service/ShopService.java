@@ -1,5 +1,7 @@
 package com.chas.service;
 
+import com.chas.model.Shop;
+
 import java.util.List;
 
 /**
@@ -7,4 +9,6 @@ import java.util.List;
  */
 public interface ShopService {
     List<Integer> selectAllShopId();
+
+    List<Shop> selectAllShop();
 }

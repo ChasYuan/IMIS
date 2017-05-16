@@ -1,6 +1,7 @@
 package com.chas.service.Impl;
 
 import com.chas.dao.ShopDao;
+import com.chas.model.Shop;
 import com.chas.service.ShopService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +23,10 @@ public class ShopServiceImpl implements ShopService{
 
     public List<Integer> selectAllShopId(){
         return shopDao.selectAllShopId();
+    }
+
+    public List<Shop> selectAllShop(){
+        return shopDao.selectAllShop();
     }
 
 }

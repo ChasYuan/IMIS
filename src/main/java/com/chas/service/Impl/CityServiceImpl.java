@@ -1,6 +1,7 @@
 package com.chas.service.Impl;
 
 import com.chas.dao.CityDao;
+import com.chas.model.City;
 import com.chas.service.CityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +23,10 @@ public class CityServiceImpl implements CityService {
 
     public List<Integer> selectAllCityId(){
         return cityDao.selectAllCityId();
+    }
+
+    public List<City> selectAllCity(){
+        return cityDao.selectAllCity();
     }
 
 }

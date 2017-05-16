@@ -1,5 +1,7 @@
 package com.chas.service;
 
+import com.chas.model.Category;
+
 import java.util.List;
 
 /**
@@ -8,5 +10,7 @@ import java.util.List;
 public interface CategoryService {
 
     List<String> selectAllCategoryId();
+
+    List<Category> selectAllCategory();
 
 }

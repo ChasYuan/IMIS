@@ -1,5 +1,7 @@
 package com.chas.service;
 
+import com.chas.model.City;
+
 import java.util.List;
 
 /**
@@ -9,4 +11,5 @@ public interface CityService {
 
     List<Integer> selectAllCityId();
 
+    List<City> selectAllCity();
 }

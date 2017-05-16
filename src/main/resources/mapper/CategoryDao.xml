@@ -8,4 +8,8 @@
         select id from `category`
     </select>
 
+    <select id="selectAllCategory" resultType="com.chas.model.Category">
+        select * from `category`
+    </select>
+
 </mapper>

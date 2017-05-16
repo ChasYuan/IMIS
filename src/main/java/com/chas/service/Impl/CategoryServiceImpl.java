@@ -1,6 +1,7 @@
 package com.chas.service.Impl;
 
 import com.chas.dao.CategoryDao;
+import com.chas.model.Category;
 import com.chas.service.CategoryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,5 +23,9 @@ public class CategoryServiceImpl implements CategoryService{
 
     public List<String> selectAllCategoryId() {
         return categoryDao.selectAllCategoryId();
+    }
+
+    public List<Category> selectAllCategory(){
+        return categoryDao.selectAllCategory();
     }
 }

@@ -1,5 +1,7 @@
 package com.chas.dao;
 
+import com.chas.model.City;
+
 import java.util.List;
 
 /**
@@ -8,5 +10,7 @@ import java.util.List;
 public interface CityDao {
 
     List<Integer> selectAllCityId();
+
+    List<City> selectAllCity();
 
 }
