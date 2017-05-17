@@ -11,15 +11,15 @@ public class Comment {
 
     private int shopId;
 
-    private String contribution;
+    private int contribution;
 
     private int remark;
 
-    private int taste;
+    private double taste;
 
-    private int envir;
+    private double envir;
 
-    private int service;
+    private double service;
 
     private String detail;
 
@@ -41,11 +41,11 @@ public class Comment {
         this.shopId = shopId;
     }
 
-    public String getContribution() {
+    public int getContribution() {
         return contribution;
     }
 
-    public void setContribution(String contribution) {
+    public void setContribution(int contribution) {
         this.contribution = contribution;
     }
 
@@ -57,27 +57,27 @@ public class Comment {
         this.remark = remark;
     }
 
-    public int getTaste() {
+    public double getTaste() {
         return taste;
     }
 
-    public void setTaste(int taste) {
+    public void setTaste(double taste) {
         this.taste = taste;
     }
 
-    public int getEnvir() {
+    public double getEnvir() {
         return envir;
     }
 
-    public void setEnvir(int envir) {
+    public void setEnvir(double envir) {
         this.envir = envir;
     }
 
-    public int getService() {
+    public double getService() {
         return service;
     }
 
-    public void setService(int service) {
+    public void setService(double service) {
         this.service = service;
     }
 

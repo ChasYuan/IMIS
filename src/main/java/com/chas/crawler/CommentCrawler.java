@@ -111,7 +111,12 @@ public class CommentCrawler extends WebCrawler{
 
                 Element contributionE = c.select("p.contribution").first();
                 String contributionCeche = contributionE.select("span").first().attr("class");
-                String contribution = contributionCeche.substring(contributionCeche.length() - 2);
+                String contributionStr = contributionCeche.substring(contributionCeche.length() - 2);
+                String contribution;
+                if(contributionStr.startsWith("k"))
+                    contribution = contributionStr.replace("k","");
+                else
+                    contribution = contributionStr;
 
                 Element remarkE = c.select("span.item-rank-rst").first();
                 String remarkCache = remarkE.attr("class");
@@ -136,6 +141,9 @@ public class CommentCrawler extends WebCrawler{
                     int length = dateCache.length();
                     date = "20" + dateCache.substring(length - 14, length - 6);
                 }
+
+                if(date.contains("更新于"))
+                    date = "2016-" + date.replace("20更新于","");
 
 
                 try {

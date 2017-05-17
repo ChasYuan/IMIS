@@ -2,6 +2,7 @@ package com.chas.dao;
 
 import com.chas.model.Shop;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -11,5 +12,10 @@ public interface ShopDao {
 
     List<Integer> selectAllShopId();
 
-    List<Shop> selectAllShop();
+    List<Shop> selectAllShopByCommentNumDESC(HashMap map);
+
+    int countAllShop();
+    List<Shop> selectShopByCondition(HashMap map);
+
+    int countShopByCondition(HashMap map);
 }

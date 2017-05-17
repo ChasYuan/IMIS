@@ -25,11 +25,11 @@ public class CommentController {
 
     public static void main(String[] args) throws Exception {
         String crawlStorageFolder = "./data/comment";
-        int numberOfCrawlers = 5;
+        int numberOfCrawlers = 7;
 
         CrawlConfig config = new CrawlConfig();
         config.setCrawlStorageFolder(crawlStorageFolder);
-        config.setPolitenessDelay(1000);
+//        config.setPolitenessDelay(1000);
         config.setIncludeHttpsPages(true);
         config.setMaxDepthOfCrawling(1);
         config.setResumableCrawling(true);
@@ -56,7 +56,7 @@ public class CommentController {
             Connection conn = DriverManager.getConnection(url,"root","1234");
             Statement stmt = conn.createStatement();
 
-            String shopSql = "select id from `shop`";
+            String shopSql = "select id from `shop` WHERE category = '日本菜' ";
             ResultSet rs = stmt.executeQuery(shopSql);
             List<Integer> shopList = new ArrayList<Integer>();
             while(rs.next()){

@@ -2,6 +2,7 @@ package com.chas.service;
 
 import com.chas.model.Shop;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -10,5 +11,11 @@ import java.util.List;
 public interface ShopService {
     List<Integer> selectAllShopId();
 
-    List<Shop> selectAllShop();
+    List<Shop> selectAllShopByCommentNumDESC(int pageIndex);
+
+    int countAllShop();
+
+    List<Shop> selectShopByCondition(String city, String category, String cond, String queue,int index, int size);
+
+    int countShopByCondition(String city, String category);
 }

@@ -80,7 +80,7 @@
                     </c:when>
                     <c:otherwise>
                         <li class="active">
-                            <a href="javascript:mysubmit('login')">
+                            <a href="javascript:mysubmit('showdata')">
 							<i class="ti-gallery"></i>
                                 <p>Data Analysis</p>
                             </a>
@@ -110,35 +110,22 @@
                     </button>
                     <div class="btn-group">
                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Action <span class="caret"></span>
+                            地区 <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
+                            <c:forEach items="${cityList}" var="city" >
+                                <li><a href="#">${city.city}</a></li>
+                            </c:forEach>
                         </ul>
                     </div>
                     <div class="btn-group">
                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Action <span class="caret"></span>
+                            类别 <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-
+                            <c:forEach items="${categoryList}" var="category">
+                                <li><a href="#">${category.category}</a></li>
+                            </c:forEach>
                         </ul>
                     </div>
                 </div>
@@ -159,82 +146,65 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="card">
+                        <div class="card card-plain">
                             <div class="header">
-                                <h4 class="title">Users Behavior</h4>
-                                <p class="category">24 Hours performance</p>
+                                <h4 class="title">商家排行榜</h4>
+                                <p class="category"></p>
                             </div>
-                            <div class="content">
-                                <div id="chartHours" class="ct-chart"></div>
-                                <div class="footer">
-                                    <div class="chart-legend">
-                                        <i class="fa fa-circle text-info"></i> Open
-                                        <i class="fa fa-circle text-danger"></i> Click
-                                        <i class="fa fa-circle text-warning"></i> Click Second Time
-                                    </div>
-                                    <hr>
-                                    <div class="stats">
-                                        <i class="ti-reload"></i> Updated 3 minutes ago
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="header">
-                                <h4 class="title">Email Statistics</h4>
-                                <p class="category">Last Campaign Performance</p>
-                            </div>
-                            <div class="content">
-                                <div id="chartPreferences" class="ct-chart ct-perfect-fourth"></div>
-
-                                <div class="footer">
-                                    <div class="chart-legend">
-                                        <i class="fa fa-circle text-info"></i> Open
-                                        <i class="fa fa-circle text-danger"></i> Bounce
-                                        <i class="fa fa-circle text-warning"></i> Unsubscribe
-                                    </div>
-                                    <hr>
-                                    <div class="stats">
-                                        <i class="ti-timer"></i> Campaign sent 2 days ago
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card ">
-                            <div class="header">
-                                <h4 class="title">2015 Sales</h4>
-                                <p class="category">All products including Taxes</p>
-                            </div>
-                            <div class="content">
-                                <div id="chartActivity" class="ct-chart"></div>
-
-                                <div class="footer">
-                                    <div class="chart-legend">
-                                        <i class="fa fa-circle text-info"></i> Tesla Model S
-                                        <i class="fa fa-circle text-warning"></i> BMW 5 Series
-                                    </div>
-                                    <hr>
-                                    <div class="stats">
-                                        <i class="ti-check"></i> Data information certified
-                                    </div>
-                                </div>
+                            <div class="content table-responsive table-full-width">
+                                <div class="input-group">
+                                    <div class="input-group-btn">
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action <span class="caret"></span></button>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">Action</a></li>
+                                            <li><a href="#">Another action</a></li>
+                                            <li><a href="#">Something else here</a></li>
+                                            <li role="separator" class="divider"></li>
+                                            <li><a href="#">Separated link</a></li>
+                                        </ul>
+                                    </div><!-- /btn-group -->
+                                    <input type="text" class="form-control" aria-label="...">
+                                </div><!-- /input-group -->
+                                <table class="table table-hover">
+                                    <thead>
+                                    <th>序号</th>
+                                    <th>商家</th>
+                                    <th>区域</th>
+                                    <th>地址</th>
+                                    <th>类别</th>
+                                    <th>评分</th>
+                                    <th></th>
+                                    </thead>
+                                    <tbody>
+                                    <c:forEach items="${shopList}" var="shop" varStatus="status" >
+                                        <tr><form  method="post" id="shopForm${shop.id}">
+                                            <input type="hidden" name="id" value="${shop.id}" />
+                                            <input type="hidden" name="curusername" value="${user.username}" />
+                                            <td>${status.count}</td>
+                                            <td>${shop.name}</td>
+                                            <td>${shop.distinct}</td>
+                                            <td>${shop.detailAddr}</td>
+                                            <td>${shop.category}</td>
+                                            <td>口味：${shop.taste} 环境：${shop.envir} 服务：${shop.service}</td>
+                                            <td class="text-center"><input class="btn btn-default" type="button" value="详细"></td></form>
+                                        </tr>
+                                    </c:forEach>
+                                    </tbody>
+                                </table>
+                                <form><ul class="pager">
+                                    <li class="previous disabled"><a href="#">&larr; Previous</a></li>
+                                    <li class="text-center">第 <input type="text" size="1" value="${pageIndex}" /> 页 / 共 ${pageTotal} 页，共 ${shopTotal} 户商家</li>
+                                    <li class="next"><a href="#">Next &rarr;</a></li>
+                                </ul><form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-
-
-
     </div>
+
+
 </div>
 
 
@@ -261,4 +231,10 @@
 
 <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 <script src="js/demo.js"></script>
+<script type="text/javascript">
+    function mysubmit(text) {
+        $("#sidebarForm").attr("action","/"+text);
+        $("#sidebarForm").submit();
+    }
+</script>
 </html>

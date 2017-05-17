@@ -41,7 +41,7 @@ public class AnalysisController {
     public String analysisIndex(HttpServletRequest request, RedirectAttributes attr){
         Map map = RequestContextUtils.getInputFlashMap(request);
         if(map == null){
-            attr.addFlashAttribute("errorMsg","非法身份的访问！请登录后进行访问！.");
+            attr.addFlashAttribute("errorMsg","非法访问！请登录后进行访问！.");
             return "redirect:/error";
         }
         return "analysis";
@@ -52,8 +52,18 @@ public class AnalysisController {
         User user = userService.selectUserByName(username);
         List<City> cityList = cityService.selectAllCity();
         List<Category> categoryList = categoryService.selectAllCategory();
-        List<Shop> shopList = shopService.selectAllShop();
-        return null;
+        int size = 30;
+        List<Shop> shopList = shopService.selectShopByCondition("","","","",1,size);
+        int shopTotal = shopService.countShopByCondition("","");
+        int pageTotal = (int)Math.ceil(shopTotal / size);
+        attr.addFlashAttribute("user",user);
+        attr.addFlashAttribute("shopList",shopList);
+        attr.addFlashAttribute("cityList",cityList);
+        attr.addFlashAttribute("categoryList",categoryList);
+        attr.addFlashAttribute("pageIndex",1);
+        attr.addFlashAttribute("pageTotal",pageTotal);
+        attr.addFlashAttribute("shopTotal",shopTotal);
+        return "redirect:/analysis";
     }
 
 }

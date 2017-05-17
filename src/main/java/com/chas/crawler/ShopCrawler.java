@@ -4,6 +4,13 @@ package com.chas.crawler;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
 
@@ -33,6 +40,7 @@ public class ShopCrawler extends WebCrawler{
     private final static String CSV_PATH = "./data/shop.csv";
     private CsvWriter cw;
     private File csv;
+    private HashSet<String> categorySet;
 
     public ShopCrawler() throws IOException {
 
@@ -41,6 +49,24 @@ public class ShopCrawler extends WebCrawler{
         if(!csv.exists()) {
             if (csv.isFile()) {
                 csv.delete();
+            }
+
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                String url = "jdbc:mysql://localhost:3306/graduate?useUnicode=true&characterEncoding=utf8&useSSL=false";
+                Connection conn = DriverManager.getConnection(url, "root", "1234");
+                Statement stmt = conn.createStatement();
+
+                String categorySql = "select category from `category`";
+                ResultSet rscategory = stmt.executeQuery(categorySql);
+                categorySet = new HashSet<String>();
+                while(rscategory.next()){
+                    categorySet.add(rscategory.getString(1));
+                }
+
+
+            }catch(Exception e){
+                e.printStackTrace();
             }
 
 //            cw = new CsvWriter(new FileWriter(csv, true), ',');
@@ -109,49 +135,50 @@ public class ShopCrawler extends WebCrawler{
             String city = doc.select("a.city.J-city").first().text();
             Elements shopList = shopUL.select("li");
             for(Element c : shopList){
-                Element tit = c.select("div.tit").first();
-                Element titleC = tit.select("a[href]").first();
-                String shopName = titleC.attr("title");
-                String shop = titleC.attr("href");
-                String shopid = shop.replace("/shop/","");
-
-                Element commentC = c.select("div.comment").first();
-                Element commentCp = commentC.select("span[title]").first();
-                String star = commentCp.attr("class").substring(22);
-
-
                 Elements tag_addr = c.select("div.tag-addr");
                 String category = tag_addr.select("span.tag").first().text();
-                String address = tag_addr.select("span.tag").last().text();
-                String detailAddr = c.select("span.addr").first().text();
+                if(categorySet.contains(category)) {
+                    Element tit = c.select("div.tit").first();
+                    Element titleC = tit.select("a[href]").first();
+                    String shopName = titleC.attr("title");
+                    String shop = titleC.attr("href");
+                    String shopid = shop.replace("/shop/","");
 
-                String commentList = c.select("span.comment-list").first().text();
-                String[] comCache = commentList.split(" ");
-                String taste = comCache[0].replace("口味","");
-                String envir = comCache[1].replace("环境","");
-                String service = comCache[2].replace("服务","");
+                    Element commentC = c.select("div.comment").first();
+                    Element commentCp = commentC.select("span[title]").first();
+                    String star = commentCp.attr("class").substring(22);
 
-                String commentNum = c.select("a.review-num > b").text();
-                String meanPrice = c.select("a.mean-price > b").text().replace("￥","");
+                    String address = tag_addr.select("span.tag").last().text();
+                    String detailAddr = c.select("span.addr").first().text();
 
-                try {
-                    cw = new CsvWriter(new FileWriter(csv, true), ',');
-                    cw.write(shopid);
-                    cw.write(shopName);
-                    cw.write(star);
-                    cw.write(city);
-                    cw.write(address);
-                    cw.write(detailAddr);
-                    cw.write(commentNum);
-                    cw.write(meanPrice);
-                    cw.write(category);
-                    cw.write(taste);
-                    cw.write(envir);
-                    cw.write(service);
-                    cw.endRecord();
-                    cw.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    String commentList = c.select("span.comment-list").first().text();
+                    String[] comCache = commentList.split(" ");
+                    String taste = comCache[0].replace("口味", "");
+                    String envir = comCache[1].replace("环境", "");
+                    String service = comCache[2].replace("服务", "");
+
+                    String commentNum = c.select("a.review-num > b").text();
+                    String meanPrice = c.select("a.mean-price > b").text().replace("￥", "");
+
+                    try {
+                        cw = new CsvWriter(new FileWriter(csv, true), ',');
+                        cw.write(shopid);
+                        cw.write(shopName);
+                        cw.write(star);
+                        cw.write(city);
+                        cw.write(address);
+                        cw.write(detailAddr);
+                        cw.write(commentNum);
+                        cw.write(meanPrice);
+                        cw.write(category);
+                        cw.write(taste);
+                        cw.write(envir);
+                        cw.write(service);
+                        cw.endRecord();
+                        cw.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
 
             }

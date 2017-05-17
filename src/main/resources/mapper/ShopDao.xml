@@ -8,7 +8,46 @@
         select `id` FROM `shop`
     </select>
 
-    <select id="selectAllShop" resultType="com.chas.model.Shop">
-        select * from `shop` ORDER BY order by commentNum DESC
+    <select id="selectAllShopByCommentNumDESC" parameterType="java.util.HashMap" resultType="com.chas.model.Shop">
+        select *
+        from `shop`
+        ORDER BY commentNum DESC
+        limit #{index},#{size}
     </select>
+
+    <select id="selectShopByCondition" parameterType="java.util.HashMap" resultType="com.chas.model.Shop">
+        select *
+        from `shop`
+        WHERE commentNum > 20
+        <if test="city != null">
+            AND city = #{city}
+        </if>
+        <if test="category != null">
+            AND category = #{category}
+        </if>
+        <if test="cond != null">
+            ORDER BY #{cond}
+        </if>
+        <if test=" queue != null">
+            #{queue}
+        </if>
+        limit #{index},#{size}
+    </select>
+
+    <select id="countShopByCondition" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+        select count(*)
+        from `shop`
+        WHERE commentNum > 20
+        <if test="city != null">
+            AND city = #{city}
+        </if>
+        <if test="category != null">
+            AND category = #{category}
+        </if>
+    </select>
+
+    <select id="countAllShop" resultType="java.lang.Integer">
+        select count(*) from `shop`
+    </select>
+
 </mapper>

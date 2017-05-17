@@ -23,11 +23,11 @@ public class Shop {
 
     private String category;
 
-    private int taste;
+    private double taste;
 
-    private int envir;
+    private double envir;
 
-    private int service;
+    private double service;
 
     public int getId() {
         return id;
@@ -101,27 +101,27 @@ public class Shop {
         this.category = category;
     }
 
-    public int getTaste() {
+    public double getTaste() {
         return taste;
     }
 
-    public void setTaste(int taste) {
+    public void setTaste(double taste) {
         this.taste = taste;
     }
 
-    public int getEnvir() {
+    public double getEnvir() {
         return envir;
     }
 
-    public void setEnvir(int envir) {
+    public void setEnvir(double envir) {
         this.envir = envir;
     }
 
-    public int getService() {
+    public double getService() {
         return service;
     }
 
-    public void setService(int service) {
+    public void setService(double service) {
         this.service = service;
     }
 }

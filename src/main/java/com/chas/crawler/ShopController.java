@@ -18,9 +18,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by ShirUshI on 2017/4/6.
@@ -65,7 +63,7 @@ public class ShopController {
             while(rscity.next()){
                 cityList.add(rscity.getInt(1));
             }
-            String categorySql = "select id from `category`";
+            String categorySql = "select id,category from `category`";
             ResultSet rscategory = stmt.executeQuery(categorySql);
             List<String> categoryList = new ArrayList<String>();
             while(rscategory.next()){
@@ -81,8 +79,15 @@ public class ShopController {
                 int city = cityIt.next();
                 while(categoryIt.hasNext()){
                     String category = categoryIt.next();
-                    controller.addSeed(pre + city + mid + category);
-                    controller.addSeed(pre + city + mid + category + aft);
+                    if(category.equals("g113") || category.equals("g102")) {
+                        controller.addSeed(pre + city + mid + category + aft);
+//                        controller.addSeed(pre + city + mid + category + aft);
+                    }else{
+                        controller.addSeed(pre + city + mid + category);
+//                        controller.addSeed(pre + city + mid + category + "p3");
+                    }
+//                    for(int i = 2;i < 5;i++)
+//                        controller.addSeed(pre + city + mid + category + aft + i);
                 }
             }
 

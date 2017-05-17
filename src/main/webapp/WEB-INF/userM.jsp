@@ -80,7 +80,7 @@
                     </c:when>
                     <c:otherwise>
                         <li>
-                            <a href="javascript:mysubmit('login')">
+                            <a href="javascript:mysubmit('showdata')">
 							<i class="ti-gallery"></i>
                                 <p>Data Analysis</p>
                             </a>
