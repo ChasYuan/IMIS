@@ -26,8 +26,8 @@
     <link href="css/demo.css" rel="stylesheet" />
 
     <!--  Fonts and icons     -->
-    <%--<link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">--%>
-    <%--<link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>--%>
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
     <link href="css/themify-icons.css" rel="stylesheet">
 
 </head>
@@ -140,6 +140,7 @@
                                 <input type="hidden" name="category" value="类别" />
                             </form>
                             <li><a href="javascript:submitCategoryForm(0)">全部</a></li>
+                            <li role="separator" class="divider"></li>
                             <c:forEach items="${categoryList}" var="category" varStatus="status">
                                 <form id="categoryForm${status.count}" method="post" action="/datawithcc">
                                     <input type="hidden" name="username" value="${user.username}" />
@@ -182,7 +183,7 @@
                                         <input type="hidden" name="username" value="${user.username}">
                                         <input type="hidden" name="city" value="${cityNav}"/>
                                         <input type="hidden" name="category" value="${categoryNav}"/>
-                                        <input type="text" name="keyword" class="form-control input-sm" aria-label="..." placeholder="商家" value="${keyword}">
+                                        <input type="text" name="keyword" class="form-control" aria-label="..." placeholder="商家" value="${keyword}">
                                     </form>
                                 </div><!-- /input-group -->
                                 <table class="table table-hover table-responsive">
@@ -218,9 +219,9 @@
                                     <input type="hidden" name="city" value="${cityNav}"/>
                                     <input type="hidden" name="category" value="${categoryNav}" />
                                     <input type="hidden" name="keyword" value="${keyword}" />
-                                    <li id="preButton" class="previous"><a href="javascript:submitPageForm(${pageIndex - 1})">&larr; Previous</a></li>
+                                    <li id="preButton" class="previous"><a href="javascript:submitPageFormPre(${pageIndex - 1})">&larr; Previous</a></li>
                                     <li class="text-center">第 <input type="text" id="pageForIndex" name="index" size="1" value="${pageIndex}" /> 页 / 共 ${pageTotal} 页，共 ${shopTotal} 户商家</li>
-                                    <li id="nextButton" class="next"><a href="javascript:submitPageForm(${pageIndex + 1})">Next &rarr;</a></li>
+                                    <li id="nextButton" class="next"><a href="javascript:submitPageFormNext(${pageIndex + 1})">Next &rarr;</a></li>
                                 </ul></form>
                             </div>
                         </div>
@@ -274,21 +275,39 @@
         $("#categoryForm"+id).submit();
     }
 </script>
-
 <script type="text/javascript">
-    function submitPageForm(id){
+    function submitPageFormPre(id){
+
+        if($("#preButton").hasClass("disabled")){
+            return;
+        }
+        else{
         $("#pageForIndex").val(id);
         $("#pageForm").submit();
+        }
+
+    }
+</script>
+<script type="text/javascript">
+    function submitPageFormNext(id){
+        if($("#nextButton").hasClass("disabled")){
+            return;
+        }
+        else{
+            $("#pageForIndex").val(id);
+            $("#pageForm").submit();
+        }
     }
 </script>
 <script type="text/javascript">
     $(document).ready(function(){
-        if(${pageIndex == 1}){
+        if(${pageIndex <= 1}){
             $("#preButton").addClass("disabled");
         }
-        if(${pageIndex == pageTotal}){
+        if(${pageIndex >= pageTotal}){
             $("#nextButton").addClass("disabled");
         }
     });
 </script>
+
 </html>

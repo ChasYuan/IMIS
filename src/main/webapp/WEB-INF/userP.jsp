@@ -107,9 +107,15 @@
                         <span class="icon-bar bar2"></span>
                         <span class="icon-bar bar3"></span>
                     </button>
-                    <a class="navbar-brand" href="#">User Profile</a>
                 </div>
                 <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a class="dropdown-toggle" data-toggle="dropdown">
+                                <p>用户信息</p>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </nav>
@@ -228,19 +234,17 @@
 	<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 	<script src="js/demo.js"></script>
 <script type="text/javascript">
-    	$(document).ready(function(){
+    $(document).ready(function(){
 
-        	demo.initChartist();
+        $.notify({
+            message: "${msg}"
 
-        	$.notify({
-            	message: "${msg}"
+        },{
+            type: 'success',
+            timer: 4000
+        });
 
-            },{
-                type: 'success',
-                timer: 4000
-            });
-
-    	});
+    });
 	</script>
 <script type="text/javascript">
     function mysubmit(text) {

@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
@@ -37,6 +38,9 @@ public class AnalysisController {
     @Autowired
     private CommentService commentService;
 
+    private User user;
+    private List<City> cityList;
+    private List<Category> categoryList;
     @RequestMapping("/analysis")
     public String analysisIndex(HttpServletRequest request, RedirectAttributes attr){
         Map map = RequestContextUtils.getInputFlashMap(request);
@@ -49,9 +53,9 @@ public class AnalysisController {
 
     @RequestMapping("/showdata")
     public String indexData(String username, RedirectAttributes attr){
-        User user = userService.selectUserByName(username);
-        List<City> cityList = cityService.selectAllCity();
-        List<Category> categoryList = categoryService.selectAllCategory();
+        user = userService.selectUserByName(username);
+        cityList = cityService.selectAllCity();
+        categoryList = categoryService.selectAllCategory();
         int size = 30;
         List<Shop> shopList = shopService.selectShopByCondition("","","","",1,size);
         int shopTotal = shopService.countShopByCondition("","");
@@ -71,9 +75,9 @@ public class AnalysisController {
 
     @RequestMapping("/datawithcc")
     public String dataWithCategory(String username, String city, String category, RedirectAttributes attr){
-        User user = userService.selectUserByName(username);
-        List<City> cityList = cityService.selectAllCity();
-        List<Category> categoryList = categoryService.selectAllCategory();
+        user = userService.selectUserByName(username);
+        cityList = cityService.selectAllCity();
+        categoryList = categoryService.selectAllCategory();
         int size = 30;
         List<Shop> shopList;
         int shopTotal;
@@ -107,9 +111,9 @@ public class AnalysisController {
 
     @RequestMapping("/shopsearch")
     public String shopSearch(String username, String city, String category, String keyword, RedirectAttributes attr){
-        User user = userService.selectUserByName(username);
-        List<City> cityList = cityService.selectAllCity();
-        List<Category> categoryList = categoryService.selectAllCategory();
+        user = userService.selectUserByName(username);
+        cityList = cityService.selectAllCity();
+        categoryList = categoryService.selectAllCategory();
         int size = 30;
         List<Shop> shopList;
         int shopTotal;
@@ -143,9 +147,9 @@ public class AnalysisController {
 
     @RequestMapping("/shoppage")
     public String shopPage(String username, String city, String category, String keyword, int index, RedirectAttributes attr){
-        User user = userService.selectUserByName(username);
-        List<City> cityList = cityService.selectAllCity();
-        List<Category> categoryList = categoryService.selectAllCategory();
+        user = userService.selectUserByName(username);
+        cityList = cityService.selectAllCity();
+        categoryList = categoryService.selectAllCategory();
         int size = 30;
         List<Shop> shopList;
         int shopTotal;
@@ -161,9 +165,8 @@ public class AnalysisController {
 
         shopList = shopService.selectShopByKeyword(cityC,categoryC,keyword,"", "", index, size);
         shopTotal = shopService.countShopByKeyword(cityC,categoryC,keyword);
-
-
         int pageTotal = (int)Math.ceil((double)shopTotal / size);
+
         attr.addFlashAttribute("user",user);
         attr.addFlashAttribute("shopList",shopList);
         attr.addFlashAttribute("cityList",cityList);

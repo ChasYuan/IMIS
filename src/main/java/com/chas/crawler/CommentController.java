@@ -12,9 +12,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by ShirUshI on 2017/4/6.
@@ -29,9 +27,9 @@ public class CommentController {
 
         CrawlConfig config = new CrawlConfig();
         config.setCrawlStorageFolder(crawlStorageFolder);
-//        config.setPolitenessDelay(1000);
+        config.setPolitenessDelay(1000);
         config.setIncludeHttpsPages(true);
-        config.setMaxDepthOfCrawling(1);
+        config.setMaxDepthOfCrawling(0);
         config.setResumableCrawling(true);
         config.setUserAgentString("Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 YaBrowser/17.3.1.840 Yowser/2.5 Safari/537.36");
 
@@ -56,19 +54,22 @@ public class CommentController {
             Connection conn = DriverManager.getConnection(url,"root","1234");
             Statement stmt = conn.createStatement();
 
-            String shopSql = "select id from `shop` WHERE category = '日本菜' ";
+            String shopSql = "select id,commentNum from `shop` where category = '日本菜'";
             ResultSet rs = stmt.executeQuery(shopSql);
-            List<Integer> shopList = new ArrayList<Integer>();
+            HashMap<Integer,Integer> shopList = new HashMap<Integer,Integer>();
             while(rs.next()){
-                shopList.add(rs.getInt(1));
+                shopList.put(rs.getInt(1),rs.getInt(2));
             }
 
             String pre = "https://www.dianping.com/shop/";
-            String aft = "/review_more?pageno=1";
-            Iterator<Integer> shopIt = shopList.iterator();
-            while(shopIt.hasNext()){
-                int city = shopIt.next();
-               controller.addSeed(pre + city + aft);
+            String aft = "/review_more?pageno=";
+            Iterator iter = shopList.entrySet().iterator();
+            while(iter.hasNext()){
+                Map.Entry entry = (Map.Entry)iter.next();
+                int shopid = (Integer)entry.getKey();
+                int num = ((Integer)entry.getValue() / 20) + 1;
+                for(int i = 1; i <= num ;i++)
+                    controller.addSeed(pre + shopid + aft + i);
             }
             stmt.close();
             conn.close();

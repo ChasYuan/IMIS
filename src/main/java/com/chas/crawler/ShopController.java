@@ -74,8 +74,9 @@ public class ShopController {
             String mid = "/10/";
             String aft = "p2";
             Iterator<Integer> cityIt = cityList.iterator();
-            Iterator<String> categoryIt = categoryList.iterator();
+
             while(cityIt.hasNext()){
+                Iterator<String> categoryIt = categoryList.iterator();
                 int city = cityIt.next();
                 while(categoryIt.hasNext()){
                     String category = categoryIt.next();

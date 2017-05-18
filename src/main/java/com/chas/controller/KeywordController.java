@@ -39,6 +39,8 @@ public class KeywordController {
     @Autowired
     private AspectService aspectService;
 
+    private User user;
+
     @RequestMapping("/keyword")
     public String allKeyword(HttpServletRequest request, RedirectAttributes attr){
         Map map = RequestContextUtils.getInputFlashMap(request);
@@ -51,7 +53,7 @@ public class KeywordController {
 
     @RequestMapping("/listAllKeyword")
     public String listAllKeyword(String username, RedirectAttributes attr){
-        User user = userService.selectUserByName(username);
+        user = userService.selectUserByName(username);
         List<HashMap> keywordList = keywordService.selectAllKeywordWithDesc();
         List<Aspect> aspectList = aspectService.selectAllAspect();
         attr.addFlashAttribute("aspectList",aspectList);
@@ -69,7 +71,7 @@ public class KeywordController {
             Keyword keyword = keywordService.selectKeywordById(id);
 
             if(keyword.getScore() == score){
-                User user = userService.selectUserByName(curusername);
+                user = userService.selectUserByName(curusername);
                 List<HashMap> keywordList = keywordService.selectAllKeywordWithDesc();
                 List<Aspect> aspectList = aspectService.selectAllAspect();
                 attr.addFlashAttribute("aspectList",aspectList);
@@ -94,7 +96,7 @@ public class KeywordController {
             }
         }
         else{
-            User user = userService.selectUserByName(curusername);
+            user = userService.selectUserByName(curusername);
             List<HashMap> keywordList = keywordService.selectAllKeywordWithDesc();
             List<Aspect> aspectList = aspectService.selectAllAspect();
             attr.addFlashAttribute("aspectList",aspectList);
@@ -110,7 +112,7 @@ public class KeywordController {
     @RequestMapping("deletekeyword")
     public String deleteKeyword(int id, String curusername, RedirectAttributes attr){
         keywordService.deleteKeywordById(id);
-        User user = userService.selectUserByName(curusername);
+        user = userService.selectUserByName(curusername);
         List<HashMap> keywordList = keywordService.selectAllKeywordWithDesc();
         List<Aspect> aspectList = aspectService.selectAllAspect();
         attr.addFlashAttribute("aspectList",aspectList);
@@ -124,7 +126,7 @@ public class KeywordController {
     @RequestMapping("/createkeyword")
     public String createKeyword(String word, int aspectId, int score, String curusername, RedirectAttributes attr){
 
-        User user = userService.selectUserByName(curusername);
+        user = userService.selectUserByName(curusername);
         List<Aspect> aspectList = aspectService.selectAllAspect();
         if(word.equals("") || !word.matches("[\\u4e00-\\u9fa5]+")){
             List<HashMap> keywordList = keywordService.selectAllKeywordWithDesc();
@@ -166,7 +168,7 @@ public class KeywordController {
     @RequestMapping("/searchkeyword")
     public String searchKeyword(String curusername, String keyword, RedirectAttributes attr){
         List<HashMap> keywordList = keywordService.selectKeywordByKeyword(keyword);
-        User user = userService.selectUserByName(curusername);
+        user = userService.selectUserByName(curusername);
         List<Aspect> aspectList = aspectService.selectAllAspect();
         attr.addFlashAttribute("aspectList",aspectList);
         attr.addFlashAttribute("user",user);

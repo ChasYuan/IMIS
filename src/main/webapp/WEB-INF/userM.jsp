@@ -107,9 +107,16 @@
                         <span class="icon-bar bar2"></span>
                         <span class="icon-bar bar3"></span>
                     </button>
-                    <a class="navbar-brand" href="#">User Management</a>
                 </div>
-                <div class="collapse navbar-collapse"></div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a class="dropdown-toggle" data-toggle="dropdown">
+                                <p>用户管理</p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </nav>
 
@@ -117,12 +124,7 @@
             <div class="container-fluid">
                 <div class="row">
 					<div class="col-md-12">
-                        <div class="card">
-                            <div class="header">
-                                <h3 class="title">User</h3>
-                                <p class="category">Manage User</p>
-								<br>
-                            </div>
+                        <div class="card card-plain">
                             <div class="content table-responsive table-full-width">
                                 <table class="table">
                                     <thead>
@@ -188,19 +190,21 @@
 <script type="text/javascript">
     $(document).ready(function(){
 
-        demo.initChartist();
-
         if(${msg == null}){
 
         }
         else{
-        $.notify({
-            message: "${msg}"
+            $(document).ready(function(){
 
-        },{
-            type: 'success',
-            timer: 4000
-        });
+                $.notify({
+                    message: "${msg}"
+
+                },{
+                    type: 'success',
+                    timer: 4000
+                });
+
+            });
         }
     });
 </script>

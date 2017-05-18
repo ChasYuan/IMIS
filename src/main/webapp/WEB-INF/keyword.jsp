@@ -107,9 +107,41 @@
                         <span class="icon-bar bar2"></span>
                         <span class="icon-bar bar3"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Keyword List</a>
+                    <form action="/createkeyword" method="post" id="createForm" class="form-inline">
+                        <input type="hidden" name="curusername" value="${user.username}"/>
+                        <div class="form-group">
+                            <label for="exampleInputName2">关键词</label>
+                            <input type="text" class="form-control" id="exampleInputName2" name="word" placeholder="关键词">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail2">维度</label>
+                            <select class="form-control" id="exampleInputEmail2" name="aspectId">
+                                <%--<option value="1">餐饮产品</option>--%>
+                                <%--<option value="2">员工行为</option>--%>
+                                <%--<option value="3">就餐环境</option>--%>
+                                <%--<option value="4">价值感受</option>--%>
+                                <%--<option value="5">品牌认知</option>--%>
+                                <%--<option value="6">文明程度</option>--%>
+                                <c:forEach items="${aspectList}" var="aspect" >
+                                    <option value="${aspect.id}">${aspect.desc}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputName3">程度</label>
+                            <input type="text" class="form-control" id="exampleInputName3" name="score" value="0">
+                        </div>
+                        <button type="button" class="btn btn-success" onclick="createkeyword()">添加</button>
+                    </form>
                 </div>
                 <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a class="dropdown-toggle" data-toggle="dropdown">
+                                <p>关键词词库</p>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </nav>
@@ -120,41 +152,6 @@
                 <div class="row">
 
                     <div class="col-md-12">
-                        <div class="card">
-                            <div class="header">
-                                <form action="/createkeyword" method="post" id="createForm" class="form-inline">
-                                    <input type="hidden" name="curusername" value="${user.username}"/>
-                                    <div class="form-group">
-                                        <label for="exampleInputName2">关键词</label>
-                                        <input type="text" class="form-control" id="exampleInputName2" name="word" placeholder="关键词">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail2">维度</label>
-                                        <select class="form-control" id="exampleInputEmail2" name="aspectId">
-                                            <%--<option value="1">餐饮产品</option>--%>
-                                            <%--<option value="2">员工行为</option>--%>
-                                            <%--<option value="3">就餐环境</option>--%>
-                                            <%--<option value="4">价值感受</option>--%>
-                                            <%--<option value="5">品牌认知</option>--%>
-                                            <%--<option value="6">文明程度</option>--%>
-                                            <c:forEach items="${aspectList}" var="aspect" >
-                                                <option value="${aspect.id}">${aspect.desc}</option>
-                                            </c:forEach>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleInputName3">程度</label>
-                                        <input type="text" class="form-control" id="exampleInputName3" name="score" value="0">
-                                    </div>
-                                    <button type="button" class="btn btn-success" onclick="createkeyword()">添加</button>
-                                </form>
-                            </div>
-                            <div class="content table-responsive table-full-width"></div>
-                        </div>
-                    </div>
-
-
-                    <div class="col-md-12">
                         <div class="card card-plain">
                             <div class="header">
                                 <h4 class="title">关键词</h4>
@@ -162,7 +159,7 @@
                             </div>
                             <div class="content table-responsive table-full-width">
                                 <form action="/searchkeyword" method="post" id="searchForm"><input type="hidden" name="curusername" value="${user.username}"><input class="form-control input-sm" type="text" name="keyword" value="${searchword}"/></form>
-                                <table class="table table-hover table-striped">
+                                <table class="table table-hover">
                                     <thead>
                                         <th>序号</th>
                                         <th>关键词</th>
@@ -227,18 +224,20 @@
 <script type="text/javascript">
     $(document).ready(function(){
 
-        demo.initChartist();
-
         if(${msg == null}){
 
         }
         else{
-            $.notify({
-                message: "${msg}"
+            $(document).ready(function(){
 
-            },{
-                type: 'success',
-                timer: 4000
+                $.notify({
+                    message: "${msg}"
+
+                },{
+                    type: 'success',
+                    timer: 4000
+                });
+
             });
         }
     });

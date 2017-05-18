@@ -34,6 +34,7 @@ public class UserController {
     @Autowired
     private RightService rightService;
 
+    private User user;
     @RequestMapping("/usermg")
     public String userMg(HttpServletRequest request, RedirectAttributes attr){
         Map map = RequestContextUtils.getInputFlashMap(request);
@@ -47,7 +48,7 @@ public class UserController {
     @RequestMapping("/userList")
     public String userList(String username, String password, RedirectAttributes attr){
         List<User> list = userService.selectAllUser();
-        User user = userService.selectUserByName(username);
+        user = userService.selectUserByName(username);
         List<Right> rightList = rightService.selectAllRight();
         attr.addFlashAttribute("user",user);
         attr.addFlashAttribute("list",list);
@@ -102,7 +103,7 @@ public class UserController {
 
     @RequestMapping(value = "/updateusermg",method = RequestMethod.POST)
     public String updateUserMg(int userid, String email, String phone, int rightid, String curusername, RedirectAttributes attr){
-        User user = userService.selectUserById(userid);
+        user = userService.selectUserById(userid);
 
         if(email.equals("")){
             attr.addFlashAttribute("msg","Update failed! Invalid Email.");
@@ -161,7 +162,7 @@ public class UserController {
 
     @RequestMapping(value = "/updateuser",method = RequestMethod.POST)
     public String updateUser(int userid, String username, String email, String phone, int rightid, RedirectAttributes attr){
-        User user = userService.selectUserById(userid);
+        user = userService.selectUserById(userid);
         if(username.equals("") || !username.matches("\\w*")){
             attr.addFlashAttribute("msg","Update failed! Invalid User Name.");
             attr.addFlashAttribute("user",user);
@@ -225,7 +226,7 @@ public class UserController {
             return "redirect:/error";
         }
 
-        User user = userService.selectUserByEmailAndPhone(email, phone);
+        user = userService.selectUserByEmailAndPhone(email, phone);
         if(user == null){
             attr.addFlashAttribute("errorMsg","Email or Phone Number is incorrect.");
             return "redirect:/error";
@@ -258,7 +259,7 @@ public class UserController {
             return "redirect:/error";
         }
 
-        User user = userService.selectUserById(userid);
+        user = userService.selectUserById(userid);
         user.setPassword(newPwd);
         userService.updateUser(user);
         return "redirect:/";
@@ -296,7 +297,7 @@ public class UserController {
             return "redirect:/error";
         }
 
-        User user = new User();
+        user = new User();
         user.setUsername(username);
         user.setPassword(newPwd);
         user.setEmail(email);
