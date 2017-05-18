@@ -55,7 +55,7 @@ public class AnalysisController {
         int size = 30;
         List<Shop> shopList = shopService.selectShopByCondition("","","","",1,size);
         int shopTotal = shopService.countShopByCondition("","");
-        int pageTotal = (int)Math.ceil(shopTotal / size);
+        int pageTotal = (int)Math.ceil((double)shopTotal / size);
         attr.addFlashAttribute("user",user);
         attr.addFlashAttribute("shopList",shopList);
         attr.addFlashAttribute("cityList",cityList);
@@ -63,6 +63,68 @@ public class AnalysisController {
         attr.addFlashAttribute("pageIndex",1);
         attr.addFlashAttribute("pageTotal",pageTotal);
         attr.addFlashAttribute("shopTotal",shopTotal);
+        attr.addFlashAttribute("cityNav","地区");
+        attr.addFlashAttribute("categoryNav","类别");
+        return "redirect:/analysis";
+    }
+
+    @RequestMapping("/datawithcity")
+    public String dataWithCity(String username, String city, String category, RedirectAttributes attr){
+        User user = userService.selectUserByName(username);
+        List<City> cityList = cityService.selectAllCity();
+        List<Category> categoryList = categoryService.selectAllCategory();
+        int size = 30;
+        List<Shop> shopList;
+        int shopTotal;
+        if(category.equals("类别")) {
+            shopList = shopService.selectShopByCondition(city, "", "", "", 1, size);
+            shopTotal = shopService.countShopByCondition(city,"");
+        }
+        else {
+            shopList = shopService.selectShopByCondition(city, category, "", "", 1, size);
+            shopTotal = shopService.countShopByCondition(city,category);
+        }
+
+        int pageTotal = (int)Math.ceil((double)shopTotal / size);
+        attr.addFlashAttribute("user",user);
+        attr.addFlashAttribute("shopList",shopList);
+        attr.addFlashAttribute("cityList",cityList);
+        attr.addFlashAttribute("categoryList",categoryList);
+        attr.addFlashAttribute("pageIndex",1);
+        attr.addFlashAttribute("pageTotal",pageTotal);
+        attr.addFlashAttribute("shopTotal",shopTotal);
+        attr.addFlashAttribute("cityNav",city);
+        attr.addFlashAttribute("categoryNav",category);
+        return "redirect:/analysis";
+    }
+
+    @RequestMapping("/datawithcategory")
+    public String dataWithCategory(String username, String city, String category, RedirectAttributes attr){
+        User user = userService.selectUserByName(username);
+        List<City> cityList = cityService.selectAllCity();
+        List<Category> categoryList = categoryService.selectAllCategory();
+        int size = 30;
+        List<Shop> shopList;
+        int shopTotal;
+        if(city.equals("地区")) {
+            shopList = shopService.selectShopByCondition("", category, "", "", 1, size);
+            shopTotal = shopService.countShopByCondition("",category);
+        }
+        else {
+            shopList = shopService.selectShopByCondition(city, category, "", "", 1, size);
+            shopTotal = shopService.countShopByCondition(city,category);
+        }
+
+        int pageTotal = (int)Math.ceil((double)shopTotal / size);
+        attr.addFlashAttribute("user",user);
+        attr.addFlashAttribute("shopList",shopList);
+        attr.addFlashAttribute("cityList",cityList);
+        attr.addFlashAttribute("categoryList",categoryList);
+        attr.addFlashAttribute("pageIndex",1);
+        attr.addFlashAttribute("pageTotal",pageTotal);
+        attr.addFlashAttribute("shopTotal",shopTotal);
+        attr.addFlashAttribute("cityNav",city);
+        attr.addFlashAttribute("categoryNav",category);
         return "redirect:/analysis";
     }
 

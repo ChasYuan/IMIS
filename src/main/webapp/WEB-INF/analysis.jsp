@@ -26,8 +26,8 @@
     <link href="css/demo.css" rel="stylesheet" />
 
     <!--  Fonts and icons     -->
-    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
+    <%--<link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">--%>
+    <%--<link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>--%>
     <link href="css/themify-icons.css" rel="stylesheet">
 
 </head>
@@ -110,21 +110,31 @@
                     </button>
                     <div class="btn-group">
                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            地区 <span class="caret"></span>
+                            ${cityNav} <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
                             <c:forEach items="${cityList}" var="city" >
-                                <li><a href="#">${city.city}</a></li>
+                                <form id="cityForm${city.id}" method="post" action="/datawithcity">
+                                    <input type="hidden" name="username" value="${user.username}" />
+                                    <input type="hidden" name="city" value="${city.city}"/>
+                                    <input type="hidden" name="category" value="${categoryNav}" />
+                                </form>
+                                    <li><a href="javascript:submitCityForm(${city.id})">${city.city}</a></li>
                             </c:forEach>
                         </ul>
                     </div>
                     <div class="btn-group">
                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            类别 <span class="caret"></span>
+                            ${categoryNav} <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <c:forEach items="${categoryList}" var="category">
-                                <li><a href="#">${category.category}</a></li>
+                            <c:forEach items="${categoryList}" var="category" varStatus="status">
+                                <form id="categoryForm${status.count}" method="post" action="/datawithcategory">
+                                    <input type="hidden" name="username" value="${user.username}" />
+                                    <input type="hidden" name="city" value="${cityNav}"/>
+                                    <input type="hidden" name="category" value="${category.category}" />
+                                </form>
+                                <li><a href="javascript:submitCategoryForm(${status.count})">${category.category}</a></li>
                             </c:forEach>
                         </ul>
                     </div>
@@ -154,40 +164,35 @@
                             <div class="content table-responsive table-full-width">
                                 <div class="input-group">
                                     <div class="input-group-btn">
-                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action <span class="caret"></span></button>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="#">Action</a></li>
-                                            <li><a href="#">Another action</a></li>
-                                            <li><a href="#">Something else here</a></li>
-                                            <li role="separator" class="divider"></li>
-                                            <li><a href="#">Separated link</a></li>
-                                        </ul>
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">搜索</button>
                                     </div><!-- /btn-group -->
                                     <input type="text" class="form-control" aria-label="...">
                                 </div><!-- /input-group -->
-                                <table class="table table-hover">
+                                <table class="table table-hover table-responsive">
                                     <thead>
-                                    <th>序号</th>
+                                    <th class="col-md-1">序号</th>
                                     <th>商家</th>
+                                    <th class="col-md-1">城市</th>
                                     <th>区域</th>
                                     <th>地址</th>
-                                    <th>类别</th>
+                                    <th class="col-md-1">类别</th>
                                     <th>评分</th>
-                                    <th></th>
                                     </thead>
                                     <tbody>
                                     <c:forEach items="${shopList}" var="shop" varStatus="status" >
-                                        <tr><form  method="post" id="shopForm${shop.id}">
+                                        <form  method="post" id="shopForm${shop.id}">
                                             <input type="hidden" name="id" value="${shop.id}" />
                                             <input type="hidden" name="curusername" value="${user.username}" />
-                                            <td>${status.count}</td>
+                                        <tr>
+                                            <td class="col-md-1">${status.count}</td>
                                             <td>${shop.name}</td>
+                                            <td class="col-md-1">${shop.city}</td>
                                             <td>${shop.distinct}</td>
                                             <td>${shop.detailAddr}</td>
-                                            <td>${shop.category}</td>
+                                            <td class="col-md-1">${shop.category}</td>
                                             <td>口味：${shop.taste} 环境：${shop.envir} 服务：${shop.service}</td>
-                                            <td class="text-center"><input class="btn btn-default" type="button" value="详细"></td></form>
                                         </tr>
+                                        </form>
                                     </c:forEach>
                                     </tbody>
                                 </table>
@@ -195,7 +200,7 @@
                                     <li class="previous disabled"><a href="#">&larr; Previous</a></li>
                                     <li class="text-center">第 <input type="text" size="1" value="${pageIndex}" /> 页 / 共 ${pageTotal} 页，共 ${shopTotal} 户商家</li>
                                     <li class="next"><a href="#">Next &rarr;</a></li>
-                                </ul><form>
+                                </ul></form>
                             </div>
                         </div>
                     </div>
@@ -235,6 +240,17 @@
     function mysubmit(text) {
         $("#sidebarForm").attr("action","/"+text);
         $("#sidebarForm").submit();
+    }
+</script>
+
+<script type="text/javascript">
+    function submitCityForm(id){
+        $("#cityForm"+id).submit();
+    }
+</script>
+<script type="text/javascript">
+    function submitCategoryForm(id){
+        $("#categoryForm"+id).submit();
     }
 </script>
 </html>

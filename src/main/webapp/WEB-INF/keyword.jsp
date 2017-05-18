@@ -193,58 +193,6 @@
                         </div>
                     </div>
 
-
-                    <%--<div class="col-md-12">--%>
-                        <%--<div class="card card-plain">--%>
-                            <%--<div class="header">--%>
-                                <%--<h4 class="title">Table on Plain Background</h4>--%>
-                                <%--<p class="category">Here is a subtitle for this table</p>--%>
-                            <%--</div>--%>
-                            <%--<div class="content table-responsive table-full-width">--%>
-                                <%--<table class="table table-hover">--%>
-                                    <%--<thead>--%>
-                                        <%--<th>keyword</th>--%>
-                                    	<%--<th>aspect</th>--%>
-                                    	<%--<th>score</th>--%>
-                                    <%--</thead>--%>
-                                    <%--<tbody>--%>
-                                        <%--<tr>--%>
-                                        	<%--<td>美味</td>--%>
-                                        	<%--<td>餐饮产品</td>--%>
-                                        	<%--<td>1</td>--%>
-                                        <%--</tr>--%>
-                                        <%--<tr>--%>
-                                        	<%--<td>新鲜</td>--%>
-                                        	<%--<td>餐饮产品</td>--%>
-                                        	<%--<td>1</td>--%>
-                                        <%--</tr>--%>
-                                        <%--<tr>--%>
-                                        	<%--<td>好吃</td>--%>
-                                        	<%--<td>餐饮产品</td>--%>
-                                        	<%--<td>1</td>--%>
-                                        <%--</tr>--%>
-                                        <%--<tr>--%>
-                                        	<%--<td>味道正</td>--%>
-                                        	<%--<td>餐饮产品</td>--%>
-                                        	<%--<td>1</td>--%>
-                                        <%--</tr>--%>
-                                        <%--<tr>--%>
-                                        	<%--<td>难吃</td>--%>
-                                        	<%--<td>餐饮产品</td>--%>
-                                        	<%--<td>-1</td>--%>
-                                        <%--</tr>--%>
-                                        <%--<tr>--%>
-                                        	<%--<td>份量足</td>--%>
-                                        	<%--<td>餐饮产品</td>--%>
-                                        	<%--<td>1</td>--%>
-                                        <%--</tr>--%>
-                                    <%--</tbody>--%>
-                                <%--</table>--%>
-
-                            <%--</div>--%>
-                        <%--</div>--%>
-                    <%--</div>--%>
-
                 </div>
             </div>
         </div>
