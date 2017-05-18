@@ -46,6 +46,37 @@
         </if>
     </select>
 
+    <select id="selectShopByKeyword" parameterType="java.util.HashMap" resultType="com.chas.model.Shop">
+        select *
+        from `shop`
+        WHERE commentNum > 20 AND name LIKE CONCAT(CONCAT('%', #{keyword}, '%'))
+        <if test="city != null">
+            AND city = #{city}
+        </if>
+        <if test="category != null">
+            AND category = #{category}
+        </if>
+        <if test="cond != null">
+            ORDER BY #{cond}
+        </if>
+        <if test=" queue != null">
+            #{queue}
+        </if>
+        limit #{index},#{size}
+    </select>
+
+    <select id="countShopByKeyword" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+        select count(*)
+        from `shop`
+        WHERE commentNum > 20 AND name LIKE CONCAT(CONCAT('%', #{keyword}, '%'))
+        <if test="city != null">
+            AND city = #{city}
+        </if>
+        <if test="category != null">
+            AND category = #{category}
+        </if>
+    </select>
+
     <select id="countAllShop" resultType="java.lang.Integer">
         select count(*) from `shop`
     </select>

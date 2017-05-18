@@ -18,4 +18,8 @@ public interface ShopDao {
     List<Shop> selectShopByCondition(HashMap map);
 
     int countShopByCondition(HashMap map);
+
+    List<Shop> selectShopByKeyword(HashMap map);
+
+    int countShopByKeyword(HashMap map);
 }

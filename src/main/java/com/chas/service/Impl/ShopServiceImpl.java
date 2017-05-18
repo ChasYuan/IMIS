@@ -65,4 +65,31 @@ public class ShopServiceImpl implements ShopService{
         return shopDao.countShopByCondition(map);
     }
 
+    public List<Shop> selectShopByKeyword(String city, String category, String keyword, String cond, String queue, int index, int size){
+        HashMap map = new HashMap();
+        index = (index - 1) * 30;
+        if(!city.equals(""))
+            map.put("city",city);
+        if(!category.equals(""))
+            map.put("category",category);
+        if(!cond.equals(""))
+            map.put("cond",cond);
+        if(!queue.equals(""))
+            map.put("queue",queue);
+        map.put("index",index);
+        map.put("size",size);
+        map.put("keyword",keyword);
+        return shopDao.selectShopByKeyword(map);
+    }
+
+    public int countShopByKeyword(String city, String category, String keyword){
+        HashMap map = new HashMap();
+        if(!city.equals(""))
+            map.put("city",city);
+        if(!category.equals(""))
+            map.put("category",category);
+        map.put("keyword",keyword);
+        return shopDao.countShopByKeyword(map);
+    }
+
 }

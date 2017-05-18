@@ -18,4 +18,8 @@ public interface ShopService {
     List<Shop> selectShopByCondition(String city, String category, String cond, String queue,int index, int size);
 
     int countShopByCondition(String city, String category);
+
+    List<Shop> selectShopByKeyword(String city, String category, String keyword, String cond, String queue, int index, int size);
+
+    int countShopByKeyword(String city, String category, String keyword);
 }

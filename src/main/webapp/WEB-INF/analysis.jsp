@@ -113,8 +113,14 @@
                             ${cityNav} <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
+                            <form id="cityForm0" method="post" action="/datawithcc">
+                                <input type="hidden" name="username" value="${user.username}" />
+                                <input type="hidden" name="city" value="地区"/>
+                                <input type="hidden" name="category" value="${categoryNav}" />
+                            </form><li><a href="javascript:submitCityForm(0)">全部</a></li>
+                            <li role="separator" class="divider"></li>
                             <c:forEach items="${cityList}" var="city" >
-                                <form id="cityForm${city.id}" method="post" action="/datawithcity">
+                                <form id="cityForm${city.id}" method="post" action="/datawithcc">
                                     <input type="hidden" name="username" value="${user.username}" />
                                     <input type="hidden" name="city" value="${city.city}"/>
                                     <input type="hidden" name="category" value="${categoryNav}" />
@@ -128,8 +134,14 @@
                             ${categoryNav} <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
+                            <form id="categoryForm0" method="post" action="/datawithcc">
+                                <input type="hidden" name="username" value="${user.username}" />
+                                <input type="hidden" name="city" value="${cityNav}"/>
+                                <input type="hidden" name="category" value="类别" />
+                            </form>
+                            <li><a href="javascript:submitCategoryForm(0)">全部</a></li>
                             <c:forEach items="${categoryList}" var="category" varStatus="status">
-                                <form id="categoryForm${status.count}" method="post" action="/datawithcategory">
+                                <form id="categoryForm${status.count}" method="post" action="/datawithcc">
                                     <input type="hidden" name="username" value="${user.username}" />
                                     <input type="hidden" name="city" value="${cityNav}"/>
                                     <input type="hidden" name="category" value="${category.category}" />
@@ -166,7 +178,12 @@
                                     <div class="input-group-btn">
                                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">搜索</button>
                                     </div><!-- /btn-group -->
-                                    <input type="text" class="form-control" aria-label="...">
+                                    <form action="/shopsearch" method="post">
+                                        <input type="hidden" name="username" value="${user.username}">
+                                        <input type="hidden" name="city" value="${cityNav}"/>
+                                        <input type="hidden" name="category" value="${categoryNav}"/>
+                                        <input type="text" name="keyword" class="form-control input-sm" aria-label="..." placeholder="商家" value="${keyword}">
+                                    </form>
                                 </div><!-- /input-group -->
                                 <table class="table table-hover table-responsive">
                                     <thead>
@@ -196,10 +213,14 @@
                                     </c:forEach>
                                     </tbody>
                                 </table>
-                                <form><ul class="pager">
-                                    <li class="previous disabled"><a href="#">&larr; Previous</a></li>
-                                    <li class="text-center">第 <input type="text" size="1" value="${pageIndex}" /> 页 / 共 ${pageTotal} 页，共 ${shopTotal} 户商家</li>
-                                    <li class="next"><a href="#">Next &rarr;</a></li>
+                                <form action="/shoppage" method="post" id="pageForm"><ul class="pager">
+                                    <input type="hidden" name="username" value="${user.username}" />
+                                    <input type="hidden" name="city" value="${cityNav}"/>
+                                    <input type="hidden" name="category" value="${categoryNav}" />
+                                    <input type="hidden" name="keyword" value="${keyword}" />
+                                    <li id="preButton" class="previous"><a href="javascript:submitPageForm(${pageIndex - 1})">&larr; Previous</a></li>
+                                    <li class="text-center">第 <input type="text" id="pageForIndex" name="index" size="1" value="${pageIndex}" /> 页 / 共 ${pageTotal} 页，共 ${shopTotal} 户商家</li>
+                                    <li id="nextButton" class="next"><a href="javascript:submitPageForm(${pageIndex + 1})">Next &rarr;</a></li>
                                 </ul></form>
                             </div>
                         </div>
@@ -252,5 +273,22 @@
     function submitCategoryForm(id){
         $("#categoryForm"+id).submit();
     }
+</script>
+
+<script type="text/javascript">
+    function submitPageForm(id){
+        $("#pageForIndex").val(id);
+        $("#pageForm").submit();
+    }
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        if(${pageIndex == 1}){
+            $("#preButton").addClass("disabled");
+        }
+        if(${pageIndex == pageTotal}){
+            $("#nextButton").addClass("disabled");
+        }
+    });
 </script>
 </html>
