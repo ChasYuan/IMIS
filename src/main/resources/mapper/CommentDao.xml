@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.chas.dao.CommentDao">
+    <select id="selectCommentByShopId" parameterType="java.lang.Integer" resultType="com.chas.model.Comment">
+        select * from comment where shopId = #{id} ORDER BY `date`
+    </select>
+
+    <select id="selectYearByShopId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select distinct year(`date`) `date` from comment where shopId = #{id} order by `date`;
+    </select>
+
+</mapper>

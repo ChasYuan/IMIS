@@ -77,6 +77,10 @@
         </if>
     </select>
 
+    <select id="selectShopById" resultType="com.chas.model.Shop" parameterType="java.lang.Integer">
+        select * from shop where `id` = #{id}
+    </select>
+
     <select id="countAllShop" resultType="java.lang.Integer">
         select count(*) from `shop`
     </select>

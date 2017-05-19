@@ -22,6 +22,26 @@
         select * from keyword where id=#{id}
     </select>
 
+    <select id="selectAllKeyword" resultType="com.chas.model.Keyword">
+        select * from `keyword`
+    </select>
+
+    <select id="selectAllWord" resultType="java.lang.String">
+        select word from `keyword`
+    </select>
+
+    <select id="selectWordByAS" parameterType="java.util.HashMap" resultType="java.lang.String">
+        select word from `keyword` WHERE aspectId = #{aspectId} AND score = #{score}
+    </select>
+
+    <select id="selectKeywordByWord" parameterType="java.lang.String" resultType="com.chas.model.Keyword">
+        select * from `keyword` WHERE word = #{word}
+    </select>
+
+    <select id="selectASByWord" parameterType="java.lang.String" resultType="java.util.HashMap">
+        select aspectId id,score score from `keyword` WHERE word = #{word}
+    </select>
+
     <update id="updateKeyword" parameterType="com.chas.model.Keyword">
         update keyword
         set `word`=#{word}, `aspectId`=#{aspectId}, `score`=#{score}

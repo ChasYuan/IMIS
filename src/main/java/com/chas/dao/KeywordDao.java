@@ -20,4 +20,14 @@ public interface KeywordDao {
     void insertKeyword(Keyword keyword);
 
     List<HashMap> selectKeywordByKeyword(String keyword);
+
+    List<Keyword> selectAllKeyword();
+
+    List<String> selectAllWord();
+
+    Keyword selectKeywordByWord(String word);
+
+    HashMap selectASByWord(String word);
+
+    List<String> selectWordByAS(HashMap map);
 }

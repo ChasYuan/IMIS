@@ -22,4 +22,6 @@ public interface ShopDao {
     List<Shop> selectShopByKeyword(HashMap map);
 
     int countShopByKeyword(HashMap map);
+
+    Shop selectShopById(int id);
 }

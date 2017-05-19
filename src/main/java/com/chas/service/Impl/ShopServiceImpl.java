@@ -92,4 +92,8 @@ public class ShopServiceImpl implements ShopService{
         return shopDao.countShopByKeyword(map);
     }
 
+    public Shop selectShopById(int id){
+        return shopDao.selectShopById(id);
+    }
+
 }

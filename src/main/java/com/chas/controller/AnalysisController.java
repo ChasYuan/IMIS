@@ -14,7 +14,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
@@ -53,9 +52,9 @@ public class AnalysisController {
 
     @RequestMapping("/showdata")
     public String indexData(String username, RedirectAttributes attr){
-        user = userService.selectUserByName(username);
-        cityList = cityService.selectAllCity();
-        categoryList = categoryService.selectAllCategory();
+        if(user == null )user = userService.selectUserByName(username);
+        if(cityList == null)cityList = cityService.selectAllCity();
+        if(categoryList == null)categoryList = categoryService.selectAllCategory();
         int size = 30;
         List<Shop> shopList = shopService.selectShopByCondition("","","","",1,size);
         int shopTotal = shopService.countShopByCondition("","");
@@ -75,9 +74,9 @@ public class AnalysisController {
 
     @RequestMapping("/datawithcc")
     public String dataWithCategory(String username, String city, String category, RedirectAttributes attr){
-        user = userService.selectUserByName(username);
-        cityList = cityService.selectAllCity();
-        categoryList = categoryService.selectAllCategory();
+        if(user == null )user = userService.selectUserByName(username);
+        if(cityList == null)cityList = cityService.selectAllCity();
+        if(categoryList == null)categoryList = categoryService.selectAllCategory();
         int size = 30;
         List<Shop> shopList;
         int shopTotal;
@@ -111,9 +110,9 @@ public class AnalysisController {
 
     @RequestMapping("/shopsearch")
     public String shopSearch(String username, String city, String category, String keyword, RedirectAttributes attr){
-        user = userService.selectUserByName(username);
-        cityList = cityService.selectAllCity();
-        categoryList = categoryService.selectAllCategory();
+        if(user == null )user = userService.selectUserByName(username);
+        if(cityList == null)cityList = cityService.selectAllCity();
+        if(categoryList == null)categoryList = categoryService.selectAllCategory();
         int size = 30;
         List<Shop> shopList;
         int shopTotal;
@@ -147,9 +146,9 @@ public class AnalysisController {
 
     @RequestMapping("/shoppage")
     public String shopPage(String username, String city, String category, String keyword, int index, RedirectAttributes attr){
-        user = userService.selectUserByName(username);
-        cityList = cityService.selectAllCity();
-        categoryList = categoryService.selectAllCategory();
+        if(user == null )user = userService.selectUserByName(username);
+        if(cityList == null)cityList = cityService.selectAllCity();
+        if(categoryList == null)categoryList = categoryService.selectAllCategory();
         int size = 30;
         List<Shop> shopList;
         int shopTotal;

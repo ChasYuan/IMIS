@@ -27,7 +27,7 @@ public class CommentController {
 
         CrawlConfig config = new CrawlConfig();
         config.setCrawlStorageFolder(crawlStorageFolder);
-        config.setPolitenessDelay(1000);
+//        config.setPolitenessDelay(1000);
         config.setIncludeHttpsPages(true);
         config.setMaxDepthOfCrawling(0);
         config.setResumableCrawling(true);
@@ -54,7 +54,7 @@ public class CommentController {
             Connection conn = DriverManager.getConnection(url,"root","1234");
             Statement stmt = conn.createStatement();
 
-            String shopSql = "select id,commentNum from `shop` where category = '日本菜'";
+            String shopSql = "select id,commentNum from `shop` where category = \"川菜\" or category = \"火锅\"";
             ResultSet rs = stmt.executeQuery(shopSql);
             HashMap<Integer,Integer> shopList = new HashMap<Integer,Integer>();
             while(rs.next()){

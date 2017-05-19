@@ -45,4 +45,27 @@ public class KeywordServiceImpl implements KeywordService{
     public List<HashMap> selectKeywordByKeyword(String keyword){
         return keywordDao.selectKeywordByKeyword(keyword);
     }
+
+    public List<Keyword> selectAllKeyword(){
+        return keywordDao.selectAllKeyword();
+    }
+
+    public List<String> selectAllWord(){
+        return keywordDao.selectAllWord();
+    }
+
+    public Keyword selectKeywordByWord(String word){
+        return keywordDao.selectKeywordByWord(word);
+    }
+
+    public HashMap selectASByWord(String word){
+        return keywordDao.selectASByWord(word);
+    }
+
+    public List<String> selectWordByAS(int aspectId, int score){
+        HashMap map = new HashMap();
+        map.put("aspectId",aspectId);
+        map.put("score",score);
+        return keywordDao.selectWordByAS(map);
+    }
 }

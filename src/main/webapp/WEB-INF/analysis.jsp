@@ -188,27 +188,25 @@
                                 </div><!-- /input-group -->
                                 <table class="table table-hover table-responsive">
                                     <thead>
-                                    <th class="col-md-1">序号</th>
-                                    <th>商家</th>
-                                    <th class="col-md-1">城市</th>
-                                    <th>区域</th>
-                                    <th>地址</th>
-                                    <th class="col-md-1">类别</th>
-                                    <th>评分</th>
+                                    <th class="col-md-1 text-center">序号</th>
+                                    <th class=" text-center">商家</th>
+                                    <th class="col-md-1 text-center">城市</th>
+                                    <th class=" text-center">区域</th>
+                                    <th class=" text-center">地址</th>
+                                    <th class="col-md-1  text-center">类别</th>
                                     </thead>
                                     <tbody>
                                     <c:forEach items="${shopList}" var="shop" varStatus="status" >
-                                        <form  method="post" id="shopForm${shop.id}">
+                                        <form  method="post" id="shopForm${shop.id}" action="/shop">
                                             <input type="hidden" name="id" value="${shop.id}" />
-                                            <input type="hidden" name="curusername" value="${user.username}" />
-                                        <tr>
-                                            <td class="col-md-1">${status.count}</td>
-                                            <td>${shop.name}</td>
-                                            <td class="col-md-1">${shop.city}</td>
-                                            <td>${shop.distinct}</td>
-                                            <td>${shop.detailAddr}</td>
-                                            <td class="col-md-1">${shop.category}</td>
-                                            <td>口味：${shop.taste} 环境：${shop.envir} 服务：${shop.service}</td>
+                                            <input type="hidden" name="username" value="${user.username}" />
+                                        <tr onclick="javascript:submitshop(${shop.id})">
+                                            <td class="col-md-1 text-center">${status.count}</td>
+                                            <td class=" text-center">${shop.name}</td>
+                                            <td class="col-md-1  text-center">${shop.city}</td>
+                                            <td class=" text-center">${shop.distinct}</td>
+                                            <td class=" text-center">${shop.detailAddr}</td>
+                                            <td class="col-md-1 text-center">${shop.category}</td>
                                         </tr>
                                         </form>
                                     </c:forEach>
@@ -230,8 +228,6 @@
             </div>
         </div>
     </div>
-
-
 </div>
 
 
@@ -268,6 +264,11 @@
 <script type="text/javascript">
     function submitCityForm(id){
         $("#cityForm"+id).submit();
+    }
+</script>
+<script type="text/javascript">
+    function submitshop(id){
+        $("#shopForm"+id).submit();
     }
 </script>
 <script type="text/javascript">

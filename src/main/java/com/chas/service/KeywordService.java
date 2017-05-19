@@ -21,4 +21,14 @@ public interface KeywordService {
     void insertKeyword(Keyword keyword);
 
     List<HashMap> selectKeywordByKeyword(String keyword);
+
+    List<Keyword> selectAllKeyword();
+
+    List<String> selectAllWord();
+
+    Keyword selectKeywordByWord(String word);
+
+    HashMap selectASByWord(String word);
+
+    List<String> selectWordByAS(int aspectId, int score);
 }
