@@ -367,7 +367,7 @@
         },
         series: [
             {
-                name:'访问来源',
+                name:'数量',
                 type:'pie',
                 radius: ['50%', '70%'],
                 avoidLabelOverlap: false,

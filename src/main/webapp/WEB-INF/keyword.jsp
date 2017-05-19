@@ -161,10 +161,10 @@
                                 <form action="/searchkeyword" method="post" id="searchForm"><input type="hidden" name="curusername" value="${user.username}"><input class="form-control input-sm" type="text" name="keyword" value="${searchword}"/></form>
                                 <table class="table table-hover">
                                     <thead>
-                                        <th>序号</th>
-                                        <th>关键词</th>
-                                    	<th>维度</th>
-                                    	<th>程度</th>
+                                        <th class="text-center">序号</th>
+                                        <th class="text-center">关键词</th>
+                                    	<th class="text-center">维度</th>
+                                    	<th class="text-center">程度</th>
                                         <th class="text-center">更新</th>
                                         <th class="text-center">删除</th>
                                     </thead>
@@ -173,10 +173,10 @@
                                         <tr><form action="/updatekeyword" method="post" id="keywordForm${keyword.id}">
                                             <input type="hidden" name="id" value="${keyword.id}" />
                                             <input type="hidden" name="curusername" value="${user.username}" />
-                                            <td>${status.count}</td>
-                                        	<td><input type="hidden" name="word" value="${keyword.word}">${keyword.word}</td>
-                                        	<td><input type="hidden" name="aspectId" value="${keyword.aspectId}" />${keyword.desc}</td>
-                                        	<td><input type="text" name="score" size="5" value="${keyword.score}"></td>
+                                            <td class="text-center">${status.count}</td>
+                                        	<td class="text-center"><input type="hidden" name="word" value="${keyword.word}">${keyword.word}</td>
+                                        	<td class="text-center"><input type="hidden" name="aspectId" value="${keyword.aspectId}" />${keyword.desc}</td>
+                                        	<td class="text-center"><input type="text" name="score" size="5" value="${keyword.score}"></td>
                                             <td class="text-center"><a href="javascript:submitkeyword(${keyword.id})"><i class="fa fa-check text-success" /></a></td></form>
                                             <form action="/deletekeyword" method="post" id="deleteForm${keyword.id}"><td class="text-center">
                                                 <input type="hidden" name="id" value="${keyword.id}" />
