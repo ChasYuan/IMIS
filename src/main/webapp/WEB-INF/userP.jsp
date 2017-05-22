@@ -56,7 +56,7 @@
 				<li class="active">
                     <a href="javascript:mysubmit('login')">
                         <i class="ti-comment-alt"></i>
-                        <p>User Profile</p>
+                        <p>个人信息</p>
                     </a>
                 </li>
                 <c:choose>
@@ -64,13 +64,13 @@
                         <li>
                             <a href="javascript:mysubmit('userList')">
 							<i class="ti-user"></i>
-                                <p>User Management</p>
+                                <p>用户管理</p>
                             </a>
                         </li>
 						<li>
                             <a href="javascript:mysubmit('listAllKeyword')">
 							<i class="ti-view-list-alt"></i>
-                                <p>Keyword List</p>
+                                <p>关键词词库</p>
                             </a>
                         </li>
                     </c:when>
@@ -82,7 +82,7 @@
                         <li>
                             <a href="javascript:mysubmit('showdata')">
 							<i class="ti-gallery"></i>
-                                <p>Data Analysis</p>
+                                <p>数据分析</p>
                             </a>
                         </li>
                     </c:otherwise>
@@ -90,7 +90,7 @@
 			    <li class="active-pro">
                     <a href="javascript:mysubmit('logout')">
                         <i class="ti-share-alt"></i>
-                        <p>Login Out</p>
+                        <p>登出</p>
                     </a>
                 </li>
             </ul>
@@ -164,7 +164,7 @@
                                     <div class="row">
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <label>Username</label>
+                                                <label>用户名</label>
                                                 <input type="text" id="username" name="username" class="form-control border-input" placeholder="Username" value="${user.username}">
                                             </div>
                                         </div>
@@ -172,13 +172,13 @@
 										<div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label>Email address</label>
+                                                <label>邮箱</label>
                                                 <input type="email" id="email" name="email" class="form-control border-input" placeholder="Email" value="${user.email}">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label>Phone</label>
+                                                <label>手机号</label>
                                                 <input type="text" id="phone" name="phone" class="form-control border-input" placeholder="Home Address" value="${user.phone}">
                                             </div>
                                         </div>
@@ -187,14 +187,14 @@
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label>Right</label>
+                                                <label>权限等级</label>
                                                 <input type="text" disabled class="form-control border-input" value="${user.right}">
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="text-center">
-                                        <button type="submit" class="btn btn-info btn-fill btn-wd">Update Profile</button>
+                                        <button type="submit" class="btn btn-info btn-fill btn-wd">更新个人信息</button>
                                     </div>
                                     <div class="clearfix"></div>
                                 </form>

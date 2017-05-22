@@ -25,19 +25,19 @@
     <div class="login_boder">
 
         <div class="login_padding" id="login_model">
-            <form action="/findPwd" method="post" >
-                <h2>Email</h2>
+            <form action="/findPwd" method="post" id="resetForm">
+                <h2>邮箱</h2>
                 <label>
                     <input type="text" name="email" id="email" class="txt_input txt_input2" >
                 </label>
 
-                <h2>Phone</h2>
+                <h2>手机号</h2>
                 <label>
                     <input type="text" name="phone" id="phone" class="txt_input" >
                 </label>
                 <div class="rem_sub">
                     <label>
-                        <input type="submit" class="sub_button" name="button" id="button" value="Submit" style="opacity: 0.7;">
+                        <input type="button" class="sub_button" onclick="submitForm()" name="button" id="button" value="重设密码" style="opacity: 0.7;">
                     </label>
                 </div>
             </form>
@@ -48,4 +48,11 @@
 </div><!--login_m end-->
 <br> <br>
 
-</body></html>
+</body>
+<script type="text/javascript">
+    function submitForm() {
+        if(confirm("确认重设密码吗？")){
+            $("#resetForm").submit();}
+    }
+</script>
+</html>

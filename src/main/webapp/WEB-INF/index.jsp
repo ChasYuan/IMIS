@@ -18,23 +18,23 @@
 
 <div class="login_padding" id="login_model">
 <form action="/login" method="post" id="loginfrom">
-  <h2>USERNAME</h2>
+  <h2>用户名</h2>
   <label>
     <input type="text" name="username" id="username" class="txt_input txt_input2" >
   </label>
 
-  <h2>PASSWORD</h2>
+  <h2>密码</h2>
   <label>
     <input type="password" name="password" id="password" class="txt_input" >
   </label>
 
-  <p class="forgot"><a id="iforget" href="/forget">Forgot your password?</a></p>
+  <p class="forgot"><a id="iforget" href="/forget">忘记密码？</a></p>
   <div class="rem_sub">
   <div class="rem_sub_l">
-   <a href="/signup"><label>SIGN-UP</label></a>
+   <a href="/signup"><label>注册</label></a>
    </div> 
     <label>
-      <input type="submit" class="sub_button" name="button" id="button" value="SIGN-IN" style="opacity: 0.7;">
+      <input type="submit" class="sub_button" name="button" id="button" value="登录" style="opacity: 0.7;">
     </label>
   </div>
 </form>

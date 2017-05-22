@@ -22,37 +22,39 @@
 <body class="login" mycollectionplug="bind">
 <div class="login_m">
     <a href="/"><div class="login_logo"><img src="./index/logo.png" width="196" height="46"></div></a>
-            <form action="/createUser" method="post" >
-                <h2>USERNAME</h2>
+    <div class="login_padding">
+    <form action="/createUser" method="post" >
+                <h2>用户名</h2>
                 <label>
                     <input type="text" name="username" id="username" class="txt_input txt_input2" >
                 </label>
-                <h2>PASSWORD</h2>
+                <h2>密码</h2>
                 <label>
                     <input type="password" name="newPwd" id="newPwd" class="txt_input txt_input2" >
                 </label>
 
-                <h2>REENTER PASSWORD</h2>
+                <h2>确认密码</h2>
                 <label>
                     <input type="password" name="newPwdCheck" id="newPwdCheck" class="txt_input" >
                 </label>
 
-                <h2>EMAIL</h2>
+                <h2>邮箱</h2>
                 <label>
                     <input type="text" name="email" id="email" class="txt_input txt_input2" >
                 </label>
 
-                <h2>PHONE</h2>
+                <h2>手机号</h2>
                 <label>
                     <input type="text" name="phone" id="phone" class="txt_input" >
                 </label>
                 <input type="hidden" name="rightid" id="rightid" value="1" class="txt_input" >
                 <div class="rem_sub">
                     <label>
-                        <input type="submit" class="sub_button" name="button" id="button" value="SIGN-UP" style="opacity: 0.7;">
+                        <input type="submit" class="sub_button" name="button" id="button" value="注册" style="opacity: 0.7;">
                     </label>
                 </div>
             </form>
+    </div>
 </div><!--login_m end-->
 <br> <br>
 

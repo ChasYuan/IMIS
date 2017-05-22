@@ -56,7 +56,7 @@
 				<li>
                     <a href="javascript:mysubmit('login')">
                         <i class="ti-comment-alt"></i>
-                        <p>User Profile</p>
+                        <p>个人信息</p>
                     </a>
                 </li>
                 <c:choose>
@@ -64,13 +64,13 @@
                         <li class="active">
                             <a href="javascript:mysubmit('userList')">
 							<i class="ti-user"></i>
-                                <p>User Management</p>
+                                <p>用户管理</p>
                             </a>
                         </li>
 						<li>
                             <a href="javascript:mysubmit('listAllKeyword')">
 							<i class="ti-view-list-alt"></i>
-                                <p>Keyword List</p>
+                                <p>关键词词库</p>
                             </a>
                         </li>
                     </c:when>
@@ -82,7 +82,7 @@
                         <li>
                             <a href="javascript:mysubmit('showdata')">
 							<i class="ti-gallery"></i>
-                                <p>Data Analysis</p>
+                                <p>数据分析</p>
                             </a>
                         </li>
                     </c:otherwise>
@@ -90,7 +90,7 @@
 			    <li class="active-pro">
                     <a href="javascript:mysubmit('logout')">
                         <i class="ti-share-alt"></i>
-                        <p>Login Out</p>
+                        <p>登出</p>
                     </a>
                 </li>
             </ul>
@@ -128,22 +128,22 @@
                             <div class="content table-responsive table-full-width">
                                 <table class="table">
                                     <thead>
-                                        <th>Name</th>
-                                    	<th>Email</th>
-                                    	<th>Phone</th>
-										<th>Right</th>
-                                        <th class="text-center">Update</th>
-                                        <th class="text-center">Delete</th>
+                                        <th class="text-center">用户名</th>
+                                    	<th class="text-center">邮箱</th>
+                                    	<th class="text-center">手机号</th>
+										<th class="text-center col-md-1">权限</th>
+                                        <th class="text-center">更新</th>
+                                        <th class="text-center">删除</th>
                                     </thead>
                                     <tbody>
                                     <c:forEach items="${list}" var="item" varStatus="status">
                                         <tr><form action="/updateusermg" method="post" id="userMgForm${item.id}">
                                             <input type="hidden" name="userid" value="${item.id}" />
                                             <input type="hidden" name="curusername" value="${user.username}" />
-                                            <td>${item.username}</td>
-                                            <td><input type="text" name="email" value="${item.email}" /></td>
-                                            <td><input type="text" name="phone" value="${item.phone}" /></td>
-                                            <td><input type="text" size="5" name="rightid" value="${item.right}" /></td>
+                                            <td class="text-center">${item.username}</td>
+                                            <td class="text-center"><input class="form-control" type="text" name="email" value="${item.email}" /></td>
+                                            <td class="text-center"><input class="form-control" type="text" name="phone" value="${item.phone}" /></td>
+                                            <td class="text-center col-md-1"><input class="form-control" type="text" size="5" name="rightid" value="${item.right}" /></td>
                                             <td class="text-center"><a href="javascript:submituser(${item.id})"><i class="fa fa-check text-success" /></a></td></form>
                                             <form action="/deleteuser" method="post" id="deleteForm${item.id}"><td class="text-center">
                                                 <input type="hidden" name="userid" value="${item.id}" />

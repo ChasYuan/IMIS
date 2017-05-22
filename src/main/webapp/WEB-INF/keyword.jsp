@@ -56,7 +56,7 @@
 				<li>
                     <a href="javascript:mysubmit('login')">
                         <i class="ti-comment-alt"></i>
-                        <p>User Profile</p>
+                        <p>个人信息</p>
                     </a>
                 </li>
                 <c:choose>
@@ -64,13 +64,13 @@
                         <li>
                             <a href="javascript:mysubmit('userList')">
 							<i class="ti-user"></i>
-                                <p>User Management</p>
+                                <p>用户管理</p>
                             </a>
                         </li>
 						<li class="active">
                             <a href="javascript:mysubmit('listAllKeyword')">
 							<i class="ti-view-list-alt"></i>
-                                <p>Keyword List</p>
+                                <p>关键词词库</p>
                             </a>
                         </li>
                     </c:when>
@@ -82,7 +82,7 @@
                         <li>
                             <a href="javascript:mysubmit('showdata')">
 							<i class="ti-gallery"></i>
-                                <p>Data Analysis</p>
+                                <p>数据分析</p>
                             </a>
                         </li>
                     </c:otherwise>
@@ -90,7 +90,7 @@
 			    <li class="active-pro">
                     <a href="javascript:mysubmit('logout')">
                         <i class="ti-share-alt"></i>
-                        <p>Login Out</p>
+                        <p>登出</p>
                     </a>
                 </li>
             </ul>
@@ -128,7 +128,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputName3">程度</label>
+                            <label for="exampleInputName3">特征</label>
                             <input type="text" class="form-control" id="exampleInputName3" name="score" value="0">
                         </div>
                         <button type="button" class="btn btn-success" onclick="createkeyword()">添加</button>
