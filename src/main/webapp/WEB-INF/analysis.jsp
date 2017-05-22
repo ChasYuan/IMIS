@@ -88,7 +88,7 @@
                     </c:otherwise>
                 </c:choose>
 			    <li class="active-pro">
-                    <a href="/">
+                    <a href="javascript:mysubmit('logout')">
                         <i class="ti-share-alt"></i>
                         <p>Login Out</p>
                     </a>

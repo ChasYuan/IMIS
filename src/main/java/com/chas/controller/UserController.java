@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +35,7 @@ public class UserController {
     @Autowired
     private RightService rightService;
 
-    private User user;
+
     @RequestMapping("/usermg")
     public String userMg(HttpServletRequest request, RedirectAttributes attr){
         Map map = RequestContextUtils.getInputFlashMap(request);
@@ -48,7 +49,7 @@ public class UserController {
     @RequestMapping("/userList")
     public String userList(String username, String password, RedirectAttributes attr){
         List<User> list = userService.selectAllUser();
-        user = userService.selectUserByName(username);
+        User user = userService.selectUserByName(username);
         List<Right> rightList = rightService.selectAllRight();
         attr.addFlashAttribute("user",user);
         attr.addFlashAttribute("list",list);
@@ -103,7 +104,7 @@ public class UserController {
 
     @RequestMapping(value = "/updateusermg",method = RequestMethod.POST)
     public String updateUserMg(int userid, String email, String phone, int rightid, String curusername, RedirectAttributes attr){
-        user = userService.selectUserById(userid);
+        User user = userService.selectUserById(userid);
 
         if(email.equals("")){
             attr.addFlashAttribute("msg","Update failed! Invalid Email.");
@@ -162,7 +163,7 @@ public class UserController {
 
     @RequestMapping(value = "/updateuser",method = RequestMethod.POST)
     public String updateUser(int userid, String username, String email, String phone, int rightid, RedirectAttributes attr){
-        user = userService.selectUserById(userid);
+        User user = userService.selectUserById(userid);
         if(username.equals("") || !username.matches("\\w*")){
             attr.addFlashAttribute("msg","Update failed! Invalid User Name.");
             attr.addFlashAttribute("user",user);
@@ -226,7 +227,7 @@ public class UserController {
             return "redirect:/error";
         }
 
-        user = userService.selectUserByEmailAndPhone(email, phone);
+        User user = userService.selectUserByEmailAndPhone(email, phone);
         if(user == null){
             attr.addFlashAttribute("errorMsg","Email or Phone Number is incorrect.");
             return "redirect:/error";
@@ -259,7 +260,7 @@ public class UserController {
             return "redirect:/error";
         }
 
-        user = userService.selectUserById(userid);
+        User user = userService.selectUserById(userid);
         user.setPassword(newPwd);
         userService.updateUser(user);
         return "redirect:/";
@@ -297,7 +298,7 @@ public class UserController {
             return "redirect:/error";
         }
 
-        user = new User();
+        User user = new User();
         user.setUsername(username);
         user.setPassword(newPwd);
         user.setEmail(email);
@@ -317,6 +318,12 @@ public class UserController {
         attr.addFlashAttribute("rightList",rightList);
         attr.addFlashAttribute("user",userService.selectUserByName(curusername));
         return "redirect:/usermg";
+    }
+
+    @RequestMapping("/logout")
+    public String logout(HttpSession session){
+        session.invalidate();
+        return "index";
     }
 
 

@@ -52,7 +52,7 @@ public class AnalysisController {
 
     @RequestMapping("/showdata")
     public String indexData(String username, RedirectAttributes attr){
-        if(user == null )user = userService.selectUserByName(username);
+        user = userService.selectUserByName(username);
         if(cityList == null)cityList = cityService.selectAllCity();
         if(categoryList == null)categoryList = categoryService.selectAllCategory();
         int size = 30;
@@ -74,7 +74,7 @@ public class AnalysisController {
 
     @RequestMapping("/datawithcc")
     public String dataWithCategory(String username, String city, String category, RedirectAttributes attr){
-        if(user == null )user = userService.selectUserByName(username);
+        user = userService.selectUserByName(username);
         if(cityList == null)cityList = cityService.selectAllCity();
         if(categoryList == null)categoryList = categoryService.selectAllCategory();
         int size = 30;
@@ -110,7 +110,7 @@ public class AnalysisController {
 
     @RequestMapping("/shopsearch")
     public String shopSearch(String username, String city, String category, String keyword, RedirectAttributes attr){
-        if(user == null )user = userService.selectUserByName(username);
+        user = userService.selectUserByName(username);
         if(cityList == null)cityList = cityService.selectAllCity();
         if(categoryList == null)categoryList = categoryService.selectAllCategory();
         int size = 30;
@@ -146,7 +146,7 @@ public class AnalysisController {
 
     @RequestMapping("/shoppage")
     public String shopPage(String username, String city, String category, String keyword, int index, RedirectAttributes attr){
-        if(user == null )user = userService.selectUserByName(username);
+        user = userService.selectUserByName(username);
         if(cityList == null)cityList = cityService.selectAllCity();
         if(categoryList == null)categoryList = categoryService.selectAllCategory();
         int size = 30;

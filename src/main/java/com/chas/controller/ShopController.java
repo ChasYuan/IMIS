@@ -58,7 +58,7 @@ public class ShopController {
 
     @RequestMapping("/shop")
     public String showShop(String username, int id, Model model){
-        if(user == null) user = userService.selectUserByName(username);
+        user = userService.selectUserByName(username);
         shop = shopService.selectShopById(id);
         List<Comment> commentList = commentService.selectCommentByShopId(id);
         int commentSize = commentList.size();
@@ -105,12 +105,18 @@ public class ShopController {
         int showCommentStar5 = 0;
 
 
-        int showSQ1 = 0;
-        int showSQ2 = 0;
-        int showSQ3 = 0;
-        int showSQ4 = 0;
-        int showSQ5 = 0;
-        int showSQ6 = 0;
+        double showSQ1 = 0;
+        int SQ1 = 0;
+        double showSQ2 = 0;
+        int SQ2 = 0;
+        double showSQ3 = 0;
+        int SQ3 = 0;
+        double showSQ4 = 0;
+        int SQ4 = 0;
+        double showSQ5 = 0;
+        int SQ5 = 0;
+        double showSQ6 = 0;
+        int SQ6 = 0;
 
         Iterator<Comment> commentIt = commentList.iterator();
         while(commentIt.hasNext()){
@@ -147,30 +153,54 @@ public class ShopController {
             List<Term> parse = ToAnalysis.parse(comment.getDetail()).getTerms();
             for(Term term : parse){
                 String name = term.getName();
-                if(wordSet10.contains(name))
+                if(wordSet10.contains(name)) {
                     showSQ1 -= 1;
-                if(wordSet11.contains(name))
+                    SQ1 += 1;
+                }
+                if(wordSet11.contains(name)) {
                     showSQ1 += 1;
-                if(wordSet20.contains(name))
+                    SQ1 += 1;
+                }
+                if(wordSet20.contains(name)){
                     showSQ2 -= 1;
-                if(wordSet21.contains(name))
+                    SQ2 += 1;
+                }
+                if(wordSet21.contains(name)) {
                     showSQ2 += 1;
-                if(wordSet30.contains(name))
+                    SQ2 += 1;
+                }
+                if(wordSet30.contains(name)) {
                     showSQ3 -= 1;
-                if(wordSet31.contains(name))
+                    SQ3 += 1;
+                }
+                if(wordSet31.contains(name)) {
                     showSQ3 += 1;
-                if(wordSet40.contains(name))
+                    SQ3 += 1;
+                }
+                if(wordSet40.contains(name)) {
                     showSQ4 -= 1;
-                if(wordSet41.contains(name))
+                    SQ4 += 1;
+                }
+                if(wordSet41.contains(name)) {
                     showSQ4 += 1;
-                if(wordSet50.contains(name))
+                    SQ4 += 1;
+                }
+                if(wordSet50.contains(name)){
                     showSQ5 -= 1;
-                if(wordSet51.contains(name))
+                    SQ5 += 1;
+                }
+                if(wordSet51.contains(name)) {
                     showSQ5 += 1;
-                if(wordSet60.contains(name))
+                    SQ5 += 1;
+                }
+                if(wordSet60.contains(name)){
                     showSQ6 -= 1;
-                if(wordSet61.contains(name))
+                    SQ6 += 1;
+                }
+                if(wordSet61.contains(name)) {
                     showSQ6 += 1;
+                    SQ6 += 1;
+                }
 
 
             }
@@ -199,23 +229,29 @@ public class ShopController {
         model.addAttribute("user",user);
         model.addAttribute("shop",shop);
 
-        int[] temp = new int[]{showSQ1,showSQ2,showSQ3,showSQ4,showSQ5,showSQ6};
-        int max = Integer.MIN_VALUE;
-        for(int i = 0; i < 6; i++){
-            if(max < Math.abs(temp[i]))
-                max = Math.abs(temp[i]);
-        }
-        for(int i = 0; i < 6; i++){
-            temp[i] = temp[i] + max;
-            temp[i] = (int)(((double) temp[i] / (2.4 * max)) * 100);
-        }
+        showSQ1 = (double)(int)(( showSQ1 / SQ1 ) * 100) / 100;
+        showSQ2 = (double)(int)(( showSQ2 / SQ2 ) * 100) / 100;
+        showSQ3 = (double)(int)(( showSQ3 / SQ3 ) * 100) / 100;
+        showSQ4 = (double)(int)(( showSQ4 / SQ4 ) * 100) / 100;
+        showSQ5 = (double)(int)(( showSQ5 / SQ5 ) * 100) / 100;
+        showSQ6 = (double)(int)(( showSQ6 / SQ6 ) * 100) / 100;
+//        int[] temp = new int[]{showSQ1,showSQ2,showSQ3,showSQ4,showSQ5,showSQ6};
+//        int max = Integer.MIN_VALUE;
+//        for(int i = 0; i < 6; i++){
+//            if(max < Math.abs(temp[i]))
+//                max = Math.abs(temp[i]);
+//        }
+//        for(int i = 0; i < 6; i++){
+//            temp[i] = temp[i] + max;
+//            temp[i] = (int)(((double) temp[i] / (2.4 * max)) * 100);
+//        }
 
-        model.addAttribute("showSQ1",temp[0]);
-        model.addAttribute("showSQ2",temp[1]);
-        model.addAttribute("showSQ3",temp[2]);
-        model.addAttribute("showSQ4",temp[3]);
-        model.addAttribute("showSQ5",temp[4]);
-        model.addAttribute("showSQ6",temp[5]);
+        model.addAttribute("showSQ1",showSQ1);
+        model.addAttribute("showSQ2",showSQ2);
+        model.addAttribute("showSQ3",showSQ3);
+        model.addAttribute("showSQ4",showSQ4);
+        model.addAttribute("showSQ5",showSQ5);
+        model.addAttribute("showSQ6",showSQ6);
         return "shopdata";
     }
 
