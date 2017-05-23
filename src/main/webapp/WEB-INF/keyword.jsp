@@ -164,7 +164,7 @@
                                         <th class="text-center">序号</th>
                                         <th class="text-center">关键词</th>
                                     	<th class="text-center">维度</th>
-                                    	<th class="text-center">程度</th>
+                                    	<th class="text-center col-md-1">特征</th>
                                         <th class="text-center">更新</th>
                                         <th class="text-center">删除</th>
                                     </thead>
@@ -176,7 +176,7 @@
                                             <td class="text-center">${status.count}</td>
                                         	<td class="text-center"><input type="hidden" name="word" value="${keyword.word}">${keyword.word}</td>
                                         	<td class="text-center"><input type="hidden" name="aspectId" value="${keyword.aspectId}" />${keyword.desc}</td>
-                                        	<td class="text-center"><input type="text" name="score" size="5" value="${keyword.score}"></td>
+                                        	<td class="text-center"><input class="form-control col-md-1" type="text" name="score" size="5" value="${keyword.score}"></td>
                                             <td class="text-center"><a href="javascript:submitkeyword(${keyword.id})"><i class="fa fa-check text-success" /></a></td></form>
                                             <form action="/deletekeyword" method="post" id="deleteForm${keyword.id}"><td class="text-center">
                                                 <input type="hidden" name="id" value="${keyword.id}" />

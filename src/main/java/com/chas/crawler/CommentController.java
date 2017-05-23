@@ -22,16 +22,16 @@ public class CommentController {
 
 
     public static void main(String[] args) throws Exception {
-        String crawlStorageFolder = "./data/comment";
-        int numberOfCrawlers = 7;
+        String crawlStorageFolder = "./data/comment";  //设置爬虫日志文件生成目录
+        int numberOfCrawlers = 7;   //设置爬虫线程数量
 
-        CrawlConfig config = new CrawlConfig();
-        config.setCrawlStorageFolder(crawlStorageFolder);
-//        config.setPolitenessDelay(1000);
-        config.setIncludeHttpsPages(true);
-        config.setMaxDepthOfCrawling(0);
-        config.setResumableCrawling(true);
-        config.setUserAgentString("Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 YaBrowser/17.3.1.840 Yowser/2.5 Safari/537.36");
+        CrawlConfig config = new CrawlConfig(); //初始化配置
+        config.setCrawlStorageFolder(crawlStorageFolder); //载入配置
+//        config.setPolitenessDelay(1000);   //设置爬虫延时，防止激烈的反爬虫策略
+        config.setIncludeHttpsPages(true);   //设置https页面爬取
+        config.setMaxDepthOfCrawling(0);     //设置爬取深度为0，即爬取当前页面。因数据量大，将通过指定所有目标URL进行爬取，而非爬虫自动发现，这样减少了非目标页面的访问量，提高了数据抓取效率
+        config.setResumableCrawling(true);   //设置爬虫线程的可恢复，防止爬虫因错误中止而停止运行
+        config.setUserAgentString("Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 YaBrowser/17.3.1.840 Yowser/2.5 Safari/537.36"); //设置User-Agent，模拟浏览器请求
 
 
 

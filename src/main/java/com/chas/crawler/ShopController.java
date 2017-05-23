@@ -82,13 +82,9 @@ public class ShopController {
                     String category = categoryIt.next();
                     if(category.equals("g113") || category.equals("g102")) {
                         controller.addSeed(pre + city + mid + category + aft);
-//                        controller.addSeed(pre + city + mid + category + aft);
                     }else{
                         controller.addSeed(pre + city + mid + category);
-//                        controller.addSeed(pre + city + mid + category + "p3");
                     }
-//                    for(int i = 2;i < 5;i++)
-//                        controller.addSeed(pre + city + mid + category + aft + i);
                 }
             }
 

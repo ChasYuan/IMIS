@@ -40,7 +40,7 @@ public class UserController {
     public String userMg(HttpServletRequest request, RedirectAttributes attr){
         Map map = RequestContextUtils.getInputFlashMap(request);
         if(map == null){
-            attr.addFlashAttribute("errorMsg","Invalid Access.");
+            attr.addFlashAttribute("errorMsg","非法的访问请求！");
             return "redirect:/error";
         }
         return "userM";
@@ -65,7 +65,7 @@ public class UserController {
     @RequestMapping(value="/login",method=RequestMethod.POST)
     public String login(String username, String password, RedirectAttributes attributes){
         if(username == "" || password == ""){
-          attributes.addFlashAttribute("msg","Please enter complete information.");
+          attributes.addFlashAttribute("msg","请输入完整信息！");
             return "redirect:/error";
         }
         String result = userService.checkLogin(username, password);
@@ -86,7 +86,7 @@ public class UserController {
     public String profile(HttpServletRequest request, RedirectAttributes attr){
         Map map = RequestContextUtils.getInputFlashMap(request);
         if(map == null){
-            attr.addFlashAttribute("errorMsg","Invalid Access.");
+            attr.addFlashAttribute("errorMsg","非法的访问请求！");
             return "redirect:/error";
         }
         return "userP";
@@ -96,7 +96,7 @@ public class UserController {
     public String error(HttpServletRequest request, RedirectAttributes attr){
         Map map = RequestContextUtils.getInputFlashMap(request);
         if(map == null){
-            attr.addFlashAttribute("errorMsg","Invalid Access.");
+            attr.addFlashAttribute("errorMsg","非法的访问请求！");
             return "redirect:/error";
         }
         return "error";
@@ -107,7 +107,7 @@ public class UserController {
         User user = userService.selectUserById(userid);
 
         if(email.equals("")){
-            attr.addFlashAttribute("msg","Update failed! Invalid Email.");
+            attr.addFlashAttribute("msg","更新失败！非法的邮箱！");
             List<User> list = userService.selectAllUser();
             List<Right> rightList = rightService.selectAllRight();
             attr.addFlashAttribute("list",list);
@@ -117,7 +117,7 @@ public class UserController {
         }
 
         if(phone.equals("") || !phone.matches("\\d*")){
-            attr.addFlashAttribute("msg","Update failed! Invalid Phone Number.");
+            attr.addFlashAttribute("msg","更新失败！非法的手机号！");
             List<User> list = userService.selectAllUser();
             List<Right> rightList = rightService.selectAllRight();
             attr.addFlashAttribute("list",list);
@@ -126,7 +126,7 @@ public class UserController {
             return "redirect:/usermg";
         }
         if(rightid > 2 || rightid < 0){
-            attr.addFlashAttribute("msg","Update failed! Invalid Right.");
+            attr.addFlashAttribute("msg","更新失败！错误的权限等级！");
             List<User> list = userService.selectAllUser();
             List<Right> rightList = rightService.selectAllRight();
             attr.addFlashAttribute("list",list);
@@ -140,7 +140,7 @@ public class UserController {
         user.setRight(rightid);
         if(userService.userUpdateCheck(user)){
             userService.updateUser(user);
-            attr.addFlashAttribute("msg","Change completed");
+            attr.addFlashAttribute("msg","更新成功！");
             List<Right> rightList = rightService.selectAllRight();
             List<User> list = userService.selectAllUser();
             attr.addFlashAttribute("list",list);
@@ -150,7 +150,7 @@ public class UserController {
         }
         else
         {
-            attr.addFlashAttribute("msg","No information changed");
+            attr.addFlashAttribute("msg","无信息更新！");
             List<User> list = userService.selectAllUser();
             List<Right> rightList = rightService.selectAllRight();
             attr.addFlashAttribute("list",list);
@@ -165,30 +165,30 @@ public class UserController {
     public String updateUser(int userid, String username, String email, String phone, int rightid, RedirectAttributes attr){
         User user = userService.selectUserById(userid);
         if(username.equals("") || !username.matches("\\w*")){
-            attr.addFlashAttribute("msg","Update failed! Invalid User Name.");
+            attr.addFlashAttribute("msg","更新失败！不合法的用户名！");
             attr.addFlashAttribute("user",user);
             return "redirect:/profile";
         }
 
         if(email.equals("")){
-            attr.addFlashAttribute("msg","Update failed! Invalid Email.");
+            attr.addFlashAttribute("msg","更新错误！错误的邮箱格式！");
             attr.addFlashAttribute("user",user);
             return "redirect:/profile";
         }
 
         if(phone.equals("") || !phone.matches("\\d*")){
-            attr.addFlashAttribute("msg","Update failed! Invalid Phone Number.");
+            attr.addFlashAttribute("msg","更新失败！错误的手机号码！");
             attr.addFlashAttribute("user",user);
             return "redirect:/profile";
         }
         if(rightid > 2 || rightid < 0){
-            attr.addFlashAttribute("msg","Update failed! Invalid Right.");
+            attr.addFlashAttribute("msg","更新失败！错误的权限等级！");
             attr.addFlashAttribute("user",user);
             return "redirect:/profile";
         }
         User old = userService.selectUserByName(username);
         if(old != null && old.getId() != userid){
-            attr.addFlashAttribute("msg","Update failed! Duplicate User Name.");
+            attr.addFlashAttribute("msg","更新失败！重复用户名！");
             attr.addFlashAttribute("user",user);
             return "redirect:/profile";
         }
@@ -199,13 +199,13 @@ public class UserController {
         if(userService.userUpdateCheck(user)){
             userService.updateUser(user);
             attr.addFlashAttribute("user",user);
-            attr.addFlashAttribute("msg","Change completed");
+            attr.addFlashAttribute("msg","更新成功！");
             return "redirect:/profile";
         }
         else
         {
             attr.addFlashAttribute("user",user);
-            attr.addFlashAttribute("msg","No information changed");
+            attr.addFlashAttribute("msg","无信息更新！");
             return "redirect:/profile";
         }
 
@@ -219,17 +219,17 @@ public class UserController {
     @RequestMapping("/findPwd")
     public String forgetPassword(String email, String phone, RedirectAttributes attr){
         if(email.equals("")){
-            attr.addFlashAttribute("errorMsg","Email cannot be none.");
+            attr.addFlashAttribute("errorMsg","邮箱不能为空！");
             return "redirect:/error";
         }
         if(phone.equals("")){
-            attr.addFlashAttribute("errorMsg","Phone Number cannot be none.");
+            attr.addFlashAttribute("errorMsg","手机号不能为空！");
             return "redirect:/error";
         }
 
         User user = userService.selectUserByEmailAndPhone(email, phone);
         if(user == null){
-            attr.addFlashAttribute("errorMsg","Email or Phone Number is incorrect.");
+            attr.addFlashAttribute("errorMsg","密码或手机号不正确！");
             return "redirect:/error";
         }
         else {
@@ -242,7 +242,7 @@ public class UserController {
     public String reset(HttpServletRequest request, RedirectAttributes attr){
         Map map = RequestContextUtils.getInputFlashMap(request);
         if(map == null){
-            attr.addFlashAttribute("errorMsg","Invalid Access.");
+            attr.addFlashAttribute("errorMsg","非法的访问请求！");
             return "redirect:/error";
         }
         return "reset";
@@ -251,12 +251,12 @@ public class UserController {
     @RequestMapping("/resetPwd")
     public String resetPwd(int userid, String newPwd, String newPwdCheck, RedirectAttributes attr){
         if(newPwd.equals("") || newPwdCheck.equals("")){
-            attr.addFlashAttribute("errorMsg","Password cannot be none.");
+            attr.addFlashAttribute("errorMsg","密码不能为空！");
             return "redirect:/error";
         }
 
         if(!newPwd.equals(newPwdCheck)){
-            attr.addFlashAttribute("errorMsg","Password cannot match.");
+            attr.addFlashAttribute("errorMsg","密码不匹配！");
             return "redirect:/error";
         }
 
@@ -274,27 +274,27 @@ public class UserController {
     @RequestMapping("/createUser")
     public String signUp(String username, String newPwd, String newPwdCheck, String email, String phone, int rightid, RedirectAttributes attr){
         if(username.equals("") || !username.matches("\\w*") || userService.selectUserByName(username) != null){
-            attr.addFlashAttribute("errorMsg","Invalid User Name.");
+            attr.addFlashAttribute("errorMsg","不合法的用户名！");
             return "redirect:/error";
         }
 
         if(newPwd.equals("") || newPwdCheck.equals("")){
-            attr.addFlashAttribute("errorMsg","Password cannot be none.");
+            attr.addFlashAttribute("errorMsg","密码不能为空！");
             return "redirect:/error";
         }
 
         if(!newPwd.equals(newPwdCheck)){
-            attr.addFlashAttribute("errorMsg","Password cannot match.");
+            attr.addFlashAttribute("errorMsg","密码不匹配！");
             return "redirect:/error";
         }
 
         if(email.equals("")){
-            attr.addFlashAttribute("errorMsg","Invalid Email.");
+            attr.addFlashAttribute("errorMsg","非法的邮箱地址！");
             return "redirect:/error";
         }
 
         if(phone.equals("") || !phone.matches("\\d*")){
-            attr.addFlashAttribute("errorMsg","Invalid Phone Number.");
+            attr.addFlashAttribute("errorMsg","非法的手机号格式！");
             return "redirect:/error";
         }
 

@@ -45,7 +45,7 @@ public class KeywordController {
     public String allKeyword(HttpServletRequest request, RedirectAttributes attr){
         Map map = RequestContextUtils.getInputFlashMap(request);
         if(map == null){
-            attr.addFlashAttribute("errorMsg","Invalid Access.");
+            attr.addFlashAttribute("errorMsg","非法的访问请求！");
             return "redirect:/error";
         }
         return "keyword";
@@ -101,7 +101,7 @@ public class KeywordController {
             List<Aspect> aspectList = aspectService.selectAllAspect();
             attr.addFlashAttribute("aspectList",aspectList);
             attr.addFlashAttribute("searchword","");
-            attr.addFlashAttribute("msg","更新失败！非法的程度信息。");
+            attr.addFlashAttribute("msg","更新失败！非法的特征信息。");
             attr.addFlashAttribute("user",user);
             attr.addFlashAttribute("keywordList",keywordList);
             return "redirect:/keyword";
@@ -155,7 +155,7 @@ public class KeywordController {
         else{
             List<HashMap> keywordList = keywordService.selectAllKeywordWithDesc();
             attr.addFlashAttribute("aspectList",aspectList);
-            attr.addFlashAttribute("msg","添加失败！非法的程度信息。");
+            attr.addFlashAttribute("msg","添加失败！非法的特征信息。");
             attr.addFlashAttribute("user",user);
             attr.addFlashAttribute("searchword","");
             attr.addFlashAttribute("keywordList",keywordList);
