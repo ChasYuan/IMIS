@@ -253,23 +253,119 @@
     // 指定图表的配置项和数据
     var aoption = {
         title: {
-            text: '服务质量',
-            x:'center'
+            text: '雷达图'
         },
         tooltip: {},
         legend: {
-            //               data:['销量']
+            top: 20,
+            itemWidth: 12,
+            itemHeight: 12,
+            data: ['服务质量'],
+            textStyle: {
+                color: '#fff'
+            }
         },
-        xAxis: {
-            data: ["餐饮产品","员工行为","就餐环境","价值感受","品牌认知","文明程度"]
+        radar: {
+            radius: '60%',
+            splitNumber: 8,
+            axisLine: {
+                lineStyle: {
+                    color: '#fff',
+                    opacity: .2
+                }
+            },
+            splitLine: {
+                lineStyle: {
+                    color: '#fff',
+                    opacity: .2
+                }
+            },
+            splitArea: {
+                areaStyle: {
+                    color: 'rgba(127,95,132,.3)',
+                    opacity: 1,
+                    shadowBlur: 45,
+                    shadowColor: 'rgba(0,0,0,.5)',
+                    shadowOffsetX: 0,
+                    shadowOffsetY: 15,
+                }
+            },
+            indicator: [{
+                name: '餐饮产品',
+                max: 1
+            }, {
+                name: '员工行为',
+                max: 1
+            }, {
+                name: '就餐环境',
+                max: 1
+            }, {
+                name: '价值感受',
+                max: 1
+            }, {
+                name: '品牌认知',
+                max: 1
+            }, {
+                name: '文明程度',
+                max: 1
+            }]
         },
-        yAxis: {},
         series: [{
-            name: '指标',
-            type: 'bar',
-            data: [${showSQ1}, ${showSQ2}, ${showSQ3}, ${showSQ4}, ${showSQ5}, ${showSQ6}]
-        }]
+            name: '服务质量分析',
+            type: 'radar',
+            symbolSize: 0,
+            areaStyle: {
+                normal: {
+                    shadowBlur: 13,
+                    shadowColor: 'rgba(0,0,0,.2)',
+                    shadowOffsetX: 0,
+                    shadowOffsetY: 10,
+                    opacity: 1
+                }
+            },
+            data: [{
+                value: [${showSQ1}, ${showSQ2}, ${showSQ3}, ${showSQ4}, ${showSQ5}, ${showSQ6}],
+                name: '服务质量',
+            }]
+        }],
+        color: ['#ef4b4c', '#b1eadb'],
+        backgroundColor: {
+            type: 'radial',
+            x: 0.4,
+            y: 0.4,
+            r: 0.35,
+            colorStops: [{
+                offset: 0,
+                color: '#895355' // 0% 处的颜色
+            }, {
+                offset: .4,
+                color: '#593640' // 100% 处的颜色
+            }, {
+                offset: 1,
+                color: '#39273d' // 100% 处的颜色
+            }],
+            globalCoord: false // 缺省为 false
+        }
     };
+        <%--{--%>
+        <%--title: {--%>
+            <%--text: '服务质量',--%>
+            <%--x:'center'--%>
+        <%--},--%>
+        <%--tooltip: {},--%>
+        <%--legend: {--%>
+            <%--//               data:['销量']--%>
+        <%--},--%>
+        <%--xAxis: {--%>
+            <%--data: ["餐饮产品","员工行为","就餐环境","价值感受","品牌认知","文明程度"]--%>
+        <%--},--%>
+        <%--yAxis: {},--%>
+        <%--series: [{--%>
+            <%--name: '指标',--%>
+            <%--type: 'bar',--%>
+            <%--data: [${showSQ1}, ${showSQ2}, ${showSQ3}, ${showSQ4}, ${showSQ5}, ${showSQ6}]--%>
+        <%--}]--%>
+    <%--};--%>
 
     // 使用刚指定的配置项和数据显示图表。
     aChart.setOption(aoption);
@@ -350,55 +446,124 @@
     // 基于准备好的dom，初始化echarts实例
     var cChart = echarts.init(document.getElementById('showCommentStar'));
 
-    // 指定图表的配置项和数据
     var coption = {
-        title : {
-            text: '用户评分',
-            x:'center'
-        },
         tooltip: {
-            trigger: 'item',
-            formatter: "{a} <br/>{b}: {c} ({d}%)"
+            trigger: "item",
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
         },
         legend: {
-            orient: 'vertical',
-            x: 'left',
-            data:['五星评分','四星评分','三星评分','两星评分','一星评分']
+            x: "left",
+            data: ['五星评分','四星评分','三星评分','两星评分','一星评分']
         },
-        series: [
-            {
-                name:'数量',
-                type:'pie',
-                radius: ['50%', '70%'],
-                avoidLabelOverlap: false,
-                label: {
-                    normal: {
-                        show: false,
-                        position: 'center'
-                    },
-                    emphasis: {
-                        show: true,
-                        textStyle: {
-                            fontSize: '30',
-                            fontWeight: 'bold'
-                        }
-                    }
-                },
-                labelLine: {
-                    normal: {
-                        show: false
-                    }
-                },
-                data:[
-                    {value:${showCommentStar5}, name:'五星评分'},
-                    {value:${showCommentStar4}, name:'四星评分'},
-                    {value:${showCommentStar3}, name:'三星评分'},
-                    {value:${showCommentStar2}, name:'两星评分'},
-                    {value:${showCommentStar1}, name:'一星评分'}
-                ]
+        label: {
+            normal: {
+                formatter: "{b} ({d}%)",
+                position: "insideTopRight"
             }
-        ]
+        },
+        labelLine: {
+            normal: {
+                smooth: .6
+            }
+        },
+        toolbox: {
+            show: !0,
+            feature: {
+                mark: {
+                    show: !0
+                },
+                dataView: {
+                    show: !0,
+                    readOnly: !1
+                },
+                magicType: {
+                    show: !0,
+                    type: ["pie", "funnel"]
+                },
+                restore: {
+                    show: !0
+                },
+                saveAsImage: {
+                    show: !0
+                }
+            }
+        },
+        calculable: !0,
+        series: [{
+            name: "用户评分",
+            type: "pie",
+            roseType: "area",
+            label: {
+                normal: {
+                    show: !0
+                },
+                emphasis: {
+                    show: !0
+                }
+            },
+            lableLine: {
+                normal: {
+                    show: !0
+                },
+                emphasis: {
+                    show: !0
+                }
+            },
+            data: [{value:${showCommentStar5}, name:'五星评分'},
+                {value:${showCommentStar4}, name:'四星评分'},
+                {value:${showCommentStar3}, name:'三星评分'},
+                {value:${showCommentStar2}, name:'两星评分'},
+                {value:${showCommentStar1}, name:'一星评分'}]
+        }]
     };
+        <%--{--%>
+        <%--title : {--%>
+            <%--text: '用户评分',--%>
+            <%--x:'center'--%>
+        <%--},--%>
+        <%--tooltip: {--%>
+            <%--trigger: 'item',--%>
+            <%--formatter: "{a} <br/>{b}: {c} ({d}%)"--%>
+        <%--},--%>
+        <%--legend: {--%>
+            <%--orient: 'vertical',--%>
+            <%--x: 'left',--%>
+            <%--data:['五星评分','四星评分','三星评分','两星评分','一星评分']--%>
+        <%--},--%>
+        <%--series: [--%>
+            <%--{--%>
+                <%--name:'数量',--%>
+                <%--type:'pie',--%>
+                <%--radius: ['50%', '70%'],--%>
+                <%--avoidLabelOverlap: false,--%>
+                <%--label: {--%>
+                    <%--normal: {--%>
+                        <%--show: false,--%>
+                        <%--position: 'center'--%>
+                    <%--},--%>
+                    <%--emphasis: {--%>
+                        <%--show: true,--%>
+                        <%--textStyle: {--%>
+                            <%--fontSize: '30',--%>
+                            <%--fontWeight: 'bold'--%>
+                        <%--}--%>
+                    <%--}--%>
+                <%--},--%>
+                <%--labelLine: {--%>
+                    <%--normal: {--%>
+                        <%--show: false--%>
+                    <%--}--%>
+                <%--},--%>
+                <%--data:[--%>
+                    <%--{value:${showCommentStar5}, name:'五星评分'},--%>
+                    <%--{value:${showCommentStar4}, name:'四星评分'},--%>
+                    <%--{value:${showCommentStar3}, name:'三星评分'},--%>
+                    <%--{value:${showCommentStar2}, name:'两星评分'},--%>
+                    <%--{value:${showCommentStar1}, name:'一星评分'}--%>
+                <%--]--%>
+            <%--}--%>
+        <%--]--%>
+    <%--};--%>
 
     // 使用刚指定的配置项和数据显示图表。
     cChart.setOption(coption);
@@ -407,7 +572,8 @@
     var dChart = echarts.init(document.getElementById('showComment'));
 
     // 指定图表的配置项和数据
-    var doption = {
+    var doption =
+        {
         title : {
             text: '用户评论',
             x:'center'

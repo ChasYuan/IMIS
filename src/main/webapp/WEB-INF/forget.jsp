@@ -37,7 +37,7 @@
                 </label>
                 <div class="rem_sub">
                     <label>
-                        <input type="button" class="sub_button" onclick="submitForm()" name="button" id="button" value="重设密码" style="opacity: 0.7;">
+                        <input type="submit" class="sub_button" name="button" id="button" value="重设密码" style="opacity: 0.7;">
                     </label>
                 </div>
             </form>
@@ -49,10 +49,5 @@
 <br> <br>
 
 </body>
-<script type="text/javascript">
-    function submitForm() {
-        if(confirm("确认重设密码吗？")){
-            $("#resetForm").submit();}
-    }
-</script>
+
 </html>
